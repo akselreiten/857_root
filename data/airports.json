@@ -1,0 +1,182 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Hartsfield–Jackson Atlanta International Airport",
+      "country": "United States",
+      "passengers": 22746009,
+      "latitude": 33.640728,
+      "longitude": -84.4277
+    },
+    {
+      "id": 2,
+      "name": "Beijing Capital International Airport",
+      "country": "China",
+      "passengers": 21663240,
+      "latitude": 40.079857,
+      "longitude": 116.603112
+    },
+    {
+      "id": 3,
+      "name": "Dubai International Airport",
+      "country": "United Arab Emirates",
+      "passengers": 19606327,
+      "latitude": 25.253175,
+      "longitude": 55.365673
+    },
+    {
+      "id": 4,
+      "name": "Tokyo Haneda Airport",
+      "country": "Japan",
+      "passengers": 18053930,
+      "latitude": 35.549393,
+      "longitude": 139.779839
+    },
+    {
+      "id": 5,
+      "name": "Los Angeles International Airport",
+      "country": "United States",
+      "passengers": 16416281,
+      "latitude": 33.941589,
+      "longitude": -118.40853
+    },
+    {
+      "id": 6,
+      "name": "London Heathrow Airport",
+      "country": "United Kingdom",
+      "passengers": 16364246,
+      "latitude": 51.470022,
+      "longitude": -0.454295
+    },
+    {
+      "id": 7,
+      "name": "Hong Kong International Airport",
+      "country": "China",
+      "passengers": 16328000,
+      "latitude": 22.308047,
+      "longitude": 113.918481
+    },
+    {
+      "id": 8,
+      "name": "O'Hare International Airport",
+      "country": "United States",
+      "passengers": 16258025,
+      "latitude": 41.974162,
+      "longitude": -87.907321
+    },
+    {
+      "id": 9,
+      "name": "Dallas/Fort Worth International Airport",
+      "country": "United States",
+      "passengers": 14487751,
+      "latitude": 32.899809,
+      "longitude": -97.040335
+    },
+    {
+      "id": 10,
+      "name": "Suvarnabhumi Airport",
+      "country": "Thailand",
+      "passengers": 14139314,
+      "latitude": 13.689999,
+      "longitude": 100.750112
+    },
+    {
+      "id": 11,
+      "name": "Shanghai Pudong International Airport",
+      "country": "China",
+      "passengers": 14136814,
+      "latitude": 31.144344,
+      "longitude": 121.808273
+    },
+    {
+      "id": 12,
+      "name": "Paris-Charles de Gaulle Airport",
+      "country": "France",
+      "passengers": 14113587,
+      "latitude": 49.009691,
+      "longitude": 2.547925
+    },
+    {
+      "id": 13,
+      "name": "Guangzhou Baiyun International Airport",
+      "country": "China",
+      "passengers": 14094902,
+      "latitude": 23.395908,
+      "longitude": 113.30797
+    },
+    {
+      "id": 14,
+      "name": "Singapore Changi Airport",
+      "country": "Singapore",
+      "passengers": 13076000,
+      "latitude": 1.36442,
+      "longitude": 103.991531
+    },
+    {
+      "id": 15,
+      "name": "Istanbul Atatürk Airport",
+      "country": "Turkey",
+      "passengers": 12944832,
+      "latitude": 40.982989,
+      "longitude": 28.810443
+    }
+  ],
+  "links": [
+    {
+      "source": 1,
+      "target": 2
+    },
+    {
+      "source": 1,
+      "target": 3
+    },
+    {
+      "source": 1,
+      "target": 11
+    },
+    {
+      "source": 2,
+      "target": 11
+    },
+    {
+      "source": 1,
+      "target": 14
+    },
+    {
+      "source": 1,
+      "target": 4
+    },
+    {
+      "source": 1,
+      "target": 5
+    },
+    {
+      "source": 4,
+      "target": 6
+    },
+    {
+      "source": 5,
+      "target": 0
+    },
+    {
+      "source": 8,
+      "target": 6
+    },
+    {
+      "source": 12,
+      "target": 9
+    },
+    {
+      "source": 4,
+      "target": 8
+    },
+    {
+      "source": 4,
+      "target": 0
+    },
+    {
+      "source": 4,
+      "target": 7
+    }
+  ]
+}
