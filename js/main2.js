@@ -20,4 +20,5 @@ var secondary = web3.eth.accounts[1];
 var balance = web3.fromWei(web3.eth.getBalance(primary), "ether");
 console.log(balance.toNumber());
 
+// You need to run personal.unlockAccount('PK') from geth console before you can send a transaction
 web3.eth.sendTransaction({from: secondary, to: '0x3E1f6a79635dB65564DAEDB58E46EF75B3A0D898', value: web3.toWei(1, "ether")});
