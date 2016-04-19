@@ -15,6 +15,8 @@ var personal = web3.personal;
 web3.eth.defaultAccount = "0x3E1f6a79635dB65564DAEDB58E46EF75B3A0D898";
 var defaultAccount = web3.eth.defaultAccount;
 
+console.log(eth.accounts);
+
 var con = web3.isConnected();
 console.log("connected:" +con);
 
