@@ -19,10 +19,10 @@ var eth = web3.eth;
 var personal = web3.personal;
 
 //  Set default account
-web3.eth.defaultAccount = pkFrancis;
+web3.eth.defaultAccount = pkAksel;
 var defaultAccount = web3.eth.defaultAccount;
 
-var address = "0xfAa51987F509f2dEeE58918E18d9A42aB999A3C2";
+var address = "0xb158B7d49CC38f3864589847EDF018f1C02a0649";
 
 var myContract = web3.eth.contract(abi);
 var myContractInstance = myContract.at(address);
@@ -42,12 +42,9 @@ function getRequests(){
         request.bonus = curr_request[3].toNumber();
         request.name = curr_request[4];
         requestArray.push(request);
-    })
+    });
     return requestArray;
 }
-
-console.log(getRequests());
-console.log(issueRequest(12,2,3,"aks2",pkAksel3));
 
 //  (Returns Boolean) Fulfil a request given the ID of the request
 function fulfillRequest(id,fromAddress){
@@ -67,8 +64,8 @@ function issueRequest(amount,duration,bonus,name,fromAddress){
     }return false;
 }
 
-//  Payback function (returns boolean)
-function payback(id,fromAddress){
+//  Pays back a loan given its ID (returns boolean)
+function paybackLoan(id,fromAddress){
     if (myContractInstance.payback.call(id,{from:fromAddress})){
         var gas = myContractInstance.payback.estimateGas(id);
         myContractInstance.payback.sendTransaction(id,{from:fromAddress, gas:gas*2});
@@ -77,7 +74,7 @@ function payback(id,fromAddress){
 }
 
 //  Triggers default on a loan (returns boolean)
-function trigger_default(id,fromAddress){
+function triggerDefault(id,fromAddress){
     if (myContractInstance.trigger_default.call(id,{from:fromAddress})){
         var gas = myContractInstance.trigger_default.estimateGas(id);
         myContractInstance.trigger_default.sendTransaction(id,{from:fromAddress, gas:gas*2});
@@ -86,7 +83,7 @@ function trigger_default(id,fromAddress){
 }
 
 //  Extends duration of a loan
-function extend(id,duration,fromAddress){
+function extendDuration(id,duration,fromAddress){
     if (myContractInstance.extend.call(id,duration,{from:fromAddress})){
         var gas = myContractInstance.extend.estimateGas(id,duration);
         myContractInstance.extend.sendTransaction(id,duration,{from:fromAddress, gas:gas*2});
@@ -94,7 +91,6 @@ function extend(id,duration,fromAddress){
     }return false;
 }
 
-console.log(getBalance(pkAksel));
 
 //  Gets balance of public key
 function getBalance(public_key) {
@@ -111,9 +107,9 @@ function getUserLoans(public_key){
         var loan = new Object();
         loan.lender = curr_loan[0];
         loan.borrower = curr_loan[1];
-        loan.amount = curr_loan[2];
-        loan.end_time = curr_loan[3];
-        loan.bonus = curr_loan[4];
+        loan.amount = curr_loan[2].toNumber();
+        loan.end_time = curr_loan[3].toNumber();
+        loan.bonus = curr_loan[4].toNumber();
         loan.name = curr_loan[5];
         loan.id = d;
         if (loan.lender == public_key){lent.push(loan);}
@@ -128,6 +124,41 @@ function getUserLoans(public_key){
 }
 
 //  Looks up user by public key and returns name as string
-function lookupPublicKey(public_key){
+function getUserName(public_key){
     return myContractInstance.getName.call(public_key);
+}
+
+//  Returns public keys of all users on the chain
+function getAllUsers(){
+    return myContractInstance.getAllUsers.call();
+}
+
+//  Returns reputation of a public key
+function getReputation(public_key) {
+
+    var curr_rep = myContractInstance.getReputation.call();
+    var reputation = new Object();
+    reputation.cash_rep = curr_rep[0].toNumber();
+    reputation.defaulted = curr_rep[1].toNumber();
+    reputation.paid = curr_rep[2].toNumber();
+    reputation.outstanding = curr_rep[3].toNumber();
+    reputation.amount = curr_rep[4].toNumber();
+    return reputation
+}
+
+
+///////////////////////////////////////
+//              HTML SPECIFIC   ///////
+///////////////////////////////////////
+
+function fillUserTable() {
+    var x = $("#input-publicKey").val().toString();
+    if (x == null || x == "") {
+        alert("Public Key must be filled out");
+        return false;
+    }else{
+        $("#user-publicKey").html(x)
+        $("#user-name").html(getUserName(x));
+        $("#user-balance").html(getBalance(x))
+    }
 }
