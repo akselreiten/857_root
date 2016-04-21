@@ -9,6 +9,11 @@ var pkAllan = "0x70a5C2DC9abFAf62AfF603D1ba99f3A9032841d4";
 var pkKristoffer = "0x183fBACe28e683d8b1632777eFadB34E6d357d7E";
 var pkFrancis = "0xCd6a2d83699444203A172FcB6EFFb611e00206DC";
 
+
+/////////////////////////////////
+//      Initiate web3          //
+/////////////////////////////////
+
 //  Instantiating web3
 var Web3 = require('web3');
 var web3 = new Web3();
@@ -19,16 +24,42 @@ var eth = web3.eth;
 var personal = web3.personal;
 
 //  Set default account
-web3.eth.defaultAccount = pkAksel;
+web3.eth.defaultAccount = pkAksel2;
 var defaultAccount = web3.eth.defaultAccount;
 
+//  Instantiate contract
 var address = "0xb158B7d49CC38f3864589847EDF018f1C02a0649";
-
 var myContract = web3.eth.contract(abi);
 var myContractInstance = myContract.at(address);
-var result = myContractInstance.getBalance.call(pkFrancis).toNumber();
 
-//  Gets all requests and returns array
+
+/////////////////////////////////
+// Ethereum specific functions //
+/////////////////////////////////
+
+//  Look up user by public key and return name as string
+function getUserName(public_key){
+    return myContractInstance.getName.call(public_key);
+}
+
+//  Returns public keys of all users on the chain
+function getAllUsers(){
+    return myContractInstance.getAllUsers.call();
+}
+
+//  Returns reputation of a public key
+function getReputation(public_key) {
+    var curr_rep = myContractInstance.getReputation.call();
+    var reputation = new Object();
+    reputation.cash_rep = curr_rep[0].toNumber();
+    reputation.defaulted = curr_rep[1].toNumber();
+    reputation.paid = curr_rep[2].toNumber();
+    reputation.outstanding = curr_rep[3].toNumber();
+    reputation.amount = curr_rep[4].toNumber();
+    return reputation
+}
+
+//  Get all requests and return array
 function getRequests(){
     var requestsIDs = myContractInstance.getAllRequests.call();
     var requestArray = [];
@@ -46,7 +77,36 @@ function getRequests(){
     return requestArray;
 }
 
-//  (Returns Boolean) Fulfil a request given the ID of the request
+//  Returns balance of public key
+function getBalance(public_key) {
+    return myContractInstance.getBalance.call(public_key).toNumber();
+}
+
+//  Returns outstanding loans given a public key
+function getUserLoans(public_key){
+    var loans = myContractInstance.getOutstandingLoans.call(public_key);
+    var borrowed = [];
+    var lent = [];
+    loans.forEach(function(d){
+        var curr_loan = myContractInstance.getSingleLoan.call(d);
+        var loan = new Object();
+        loan.lender = curr_loan[0];
+        loan.borrower = curr_loan[1];
+        loan.amount = curr_loan[2].toNumber();
+        loan.end_time = curr_loan[3].toNumber();
+        loan.bonus = curr_loan[4].toNumber();
+        loan.name = curr_loan[5];
+        loan.id = d;
+        if (loan.lender == public_key){lent.push(loan);}
+        else{borrowed.push(loan);}
+    });
+    var userLoan = new Object();
+    userLoan.borrowed = borrowed;
+    userLoan.lent = lent;
+    return userLoan;
+}
+
+//  Fulfil a request given the ID of the request and publicKey from fulfiller
 function fulfillRequest(id,fromAddress){
     if (myContractInstance.fulfillRequest.call(id,{from:fromAddress})){
         var gas = myContractInstance.fulfillRequest.estimateGas(id);
@@ -92,73 +152,86 @@ function extendDuration(id,duration,fromAddress){
 }
 
 
-//  Gets balance of public key
-function getBalance(public_key) {
-    return myContractInstance.getBalance.call(public_key).toNumber();
-}
-
-//  Gets outstanding loans given a public key
-function getUserLoans(public_key){
-    var loans = myContractInstance.getOutstandingLoans.call(public_key);
-    var borrowed = [];
-    var lent = [];
-    loans.forEach(function(d){
-        var curr_loan = myContractInstance.getSingleLoan.call(d);
-        var loan = new Object();
-        loan.lender = curr_loan[0];
-        loan.borrower = curr_loan[1];
-        loan.amount = curr_loan[2].toNumber();
-        loan.end_time = curr_loan[3].toNumber();
-        loan.bonus = curr_loan[4].toNumber();
-        loan.name = curr_loan[5];
-        loan.id = d;
-        if (loan.lender == public_key){lent.push(loan);}
-        else{borrowed.push(loan);}
-    });
-
-    var userLoan = new Object();
-    userLoan.borrowed = borrowed;
-    userLoan.lent = lent;
-
-    return userLoan;
-}
-
-//  Looks up user by public key and returns name as string
-function getUserName(public_key){
-    return myContractInstance.getName.call(public_key);
-}
-
-//  Returns public keys of all users on the chain
-function getAllUsers(){
-    return myContractInstance.getAllUsers.call();
-}
-
-//  Returns reputation of a public key
-function getReputation(public_key) {
-
-    var curr_rep = myContractInstance.getReputation.call();
-    var reputation = new Object();
-    reputation.cash_rep = curr_rep[0].toNumber();
-    reputation.defaulted = curr_rep[1].toNumber();
-    reputation.paid = curr_rep[2].toNumber();
-    reputation.outstanding = curr_rep[3].toNumber();
-    reputation.amount = curr_rep[4].toNumber();
-    return reputation
-}
-
 
 ///////////////////////////////////////
-//              HTML SPECIFIC   ///////
+////      HTML SPECIFIC         ///////
 ///////////////////////////////////////
 
-function fillUserTable() {
-    var x = $("#input-publicKey").val().toString();
+main();
+
+function main(){
+
+    var public_key = $("#input-publicKey").val().toString();
+
+    clearTables();
+    fillUserTable(public_key);
+    fillBorrowedTable(public_key);
+    fillLentTable(public_key);
+    fillRequestTable();
+    fillReputationTable();
+
+}
+
+function clearTables(){
+    $("#table-requests-tbody").empty();
+    $("#table-borrowed-tbody").empty();
+    $("#table-lent-tbody").empty();
+    $("#table-requests-tbody").empty();
+    $("#table-reputation-tbody").empty();
+}
+
+
+//  Fills user table given a public key
+function fillUserTable(x) {
     if (x == null || x == "") {
         alert("Public Key must be filled out");
         return false;
     }else{
-        $("#user-publicKey").html(x)
-        $("#user-name").html(getUserName(x));
-        $("#user-balance").html(getBalance(x))
+        $("#table-user-publicKey").html(x)
+        $("#table-user-name").html(getUserName(x));
+        $("#table-user-balance").html(getBalance(x))
     }
+    fillLentTable()
 }
+
+//  Fills request table regardless of public key
+function fillRequestTable(){
+    var curr_requests = getRequests();
+    curr_requests.forEach(function(d){
+        $('#table-requests').append('<tr><td>' + d.name+'</td><td>'+d.amount+'</td><td>'+d.bonus+'</td><td>'+d.duration+'</td></tr>');
+    });
+}
+
+//  Fills out borrowed table given a public key
+function fillBorrowedTable(public_key){
+    var public_key = $("#input-publicKey").val().toString();
+    var loans = getUserLoans(public_key);
+    loans["borrowed"].forEach(function(d){
+        var lender = getUserName(d.lender);
+        $('#table-borrowed').append('<tr><td>'+d.name+'</td><td>'+lender+'</td><td>'+d.amount+'</td><td>'+d.end_time+'</td></tr>');
+    })
+}
+
+//  Fills out borrowed table given a public key
+function fillLentTable(public_key){
+    var loans = getUserLoans(public_key);
+    loans["lent"].forEach(function(d){
+        var lender = getUserName(d.lender);
+        $('#table-lent').append('<tr><td>'+d.name+'</td><td>'+lender+'</td><td>'+d.amount+'</td><td>'+d.end_time+'</td></tr>');
+    })
+}
+
+//  Fills out reputation table for all users of the chain
+function fillReputationTable(){
+    var users = getAllUsers();
+    users.forEach(function(pk){
+        var reputation = getReputation(pk);
+        var name = getUserName(pk);
+        $('#table-reputation').append('<tr><td>'+name+'</td><td>'+reputation+'</td></tr>');
+    });
+}
+
+function copyToClipboard(text) {
+    window.prompt("Copy to clipboard: Cmd+C, Enter", text);
+}
+
