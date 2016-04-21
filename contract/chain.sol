@@ -95,6 +95,10 @@ contract MicroChain is Mortal {
 		return balanceOf[_target];
 	}
 	
+	function getDebt(address _target) returns (uint) {
+		return debt[_target];
+	}
+	
 	event Transfer(address indexed from, address indexed to, uint value);
 
 	function transfer(address _to, uint _value) returns (bool) {
@@ -114,7 +118,7 @@ contract MicroChain is Mortal {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		
 		var newReq = Request({borrower: msg.sender, amount: _amount, duration: _duration, bonus: _bonus, name: _name});
-		var newHash = bytes8(sha3(msg.sender, now));
+		var newHash = bytes8(sha3(msg.sender, now, _amount, _duration, _bonus, _name));
 		requestIDs.push(newHash);
 		requests[newHash] = newReq;
 		return true;
@@ -214,7 +218,7 @@ contract MicroChain is Mortal {
 	/*
 	If past the deadline, defaults the loan (called by the lender)
 	*/
-	function trigger_default(bytes8 _id) returns (bool) {
+	function triggerDefault(bytes8 _id) returns (bool) {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		
 		var theLoan = allLoans[_id];
@@ -258,5 +262,34 @@ contract MicroChain is Mortal {
 		if (msg.sender != theLoan.lender) throw;
 		theLoan.end_time += duration;
 		return true;
+	}
+	
+	function getName(address _name) returns (string) {
+		if (bytes(userMap[msg.sender]).length == 0) throw;
+		
+		return userMap[_name];
+	}
+	
+	function getOutstandingLoans(address _name) returns (bytes8[]) {
+		if (bytes(userMap[msg.sender]).length == 0) throw;
+		
+		return userLoans[_name];
+	}
+	
+	function getSingleLoan(bytes8 _id) returns (address, address, uint, uint, uint, string) {
+		if (bytes(userMap[msg.sender]).length == 0) throw;
+		var theLoan = allLoans[_id];
+		return (theLoan.lender, theLoan.borrower, theLoan.amount, theLoan.end_time, theLoan.bonus, theLoan.name);
+	}
+	
+	function getAllUsers() returns (address[]) {
+		if (bytes(userMap[msg.sender]).length == 0) throw;
+		return allUsers;
+	}
+	
+	function getReputation(address _name) returns (int, uint, uint, uint, uint) {
+		if (bytes(userMap[msg.sender]).length == 0) throw;
+		var theRep = reputation[_name];
+		return(theRep.cash_rep, theRep.defaulted, theRep.paid, theRep.outstanding, theRep.amt);
 	}
 }
