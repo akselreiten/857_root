@@ -8,6 +8,7 @@ var pkAksel3 = "0x1f82dE5CCEE343E0D663e2E1D82D69642362F736";
 var pkAllan = "0x70a5C2DC9abFAf62AfF603D1ba99f3A9032841d4";
 var pkKristoffer = "0x183fBACe28e683d8b1632777eFadB34E6d357d7E";
 var pkFrancis = "0xCd6a2d83699444203A172FcB6EFFb611e00206DC";
+var pkFrancis2 = "0xb2fF7408BC8C6f95E3eB515B6E549bAbfA62FD67";
 
 
 /////////////////////////////////
@@ -19,18 +20,10 @@ var Web3 = require('web3');
 var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
-//  Defining variables
-var eth = web3.eth;
-var personal = web3.personal;
-
-//  Set default account
-web3.eth.defaultAccount = pkAksel2;
-var defaultAccount = web3.eth.defaultAccount;
-
 //  Instantiate contract
-var address = "0xb158B7d49CC38f3864589847EDF018f1C02a0649";
-var myContract = web3.eth.contract(abi);
-var myContractInstance = myContract.at(address);
+var contractAddress = "0xa154994c58e4EFC49c680Db7354D962924Be6221";
+var microChain = web3.eth.contract(abi);
+var mcInstance = microChain.at(contractAddress);
 
 
 /////////////////////////////////
@@ -163,6 +156,7 @@ function main(){
 
     var public_key = $("#input-publicKey").val().toString();
 
+    alert(public_key);
     clearTables();
     fillUserTable(public_key);
     fillBorrowedTable(public_key);
