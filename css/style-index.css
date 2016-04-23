@@ -6,8 +6,13 @@ html,body {
     -o-background-size: cover;
     zoom: 1;
     background-size: cover;
-    font-family: "Segoe UI";
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
     color: lightgrey;
+}
+
+h1 {
+    font-weight: 300;
 }
 
 p{

@@ -30,7 +30,7 @@
         <!--User information-->
         <div class="row">
             <div class="col-md-8">
-                <h2>Welcome, Aksel!</h2>
+                <h2 id = "welcome">Welcome, Aksel!</h2>
             </div>
             <div class="col-md-4" id="col-table-user">
                 <table class="table table-condensed table-hover table-sm" id="table-user">
@@ -38,12 +38,14 @@
                         <tr>
                             <th>Username</th>
                             <th>Balance</th>
+                            <th>Owned Debt</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="table-user-name">Aksel</td>
-                            <td id="table-user-balance">20</td>
+                            <td id="table-user-name"></td>
+                            <td id="table-user-balance"></td>
+                            <td id="table-user-debt"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -57,23 +59,16 @@
             <table class="table table-condensed" id="table-requests">
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>User</th>
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Interest</th>
                     <th>Duration</th>
+                    <th>Certifications</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody id="table-requests-tbody">
-                <tr>
-                    <td class="td-text">Aksel</td>
-                    <td class="td-text">Water Pump</td>
-                    <td class="td-text">2000 BTC</td>
-                    <td class="td-text">20 BTC</td>
-                    <td class="td-text">12/12/17</td>
-                    <td> <button class="btn btn-select">Fulfill Request</button></td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -86,6 +81,10 @@
     <!-- Load JS libraries -->
     <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    <script src="../node_modules/web3/dist/web3.js"></script>
+    <script src="../node_modules/bignumber.js/bignumber.min.js"></script>
+    <script src="../data/contract.js"></script>
     <script src="../js/main.js"></script>
+    <script src="../js/requests.js"></script>
 </body>
 </html>

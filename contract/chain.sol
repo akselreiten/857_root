@@ -71,7 +71,7 @@ contract MicroChain is Mortal {
 	mapping(address => bytes8[]) public userHistory;
 	mapping(bytes8 => bytes8[]) public projectHistory;
 	mapping(bytes8 => History) public allHistory;
-	bytes8[] public finishedProjects;
+	bytes8[] public allProjects;
 	
 	// Certifiers
 	mapping(bytes8 => address[]) public certifiers;
@@ -187,6 +187,7 @@ contract MicroChain is Mortal {
 		reputation[theBorrower].amt += theReq.amount;
 		
 		addHistory(msg.sender, _id, "fulfilled request and started project");
+		allProjects.push(_id);
 		
 		delete requests[_id];
 		
@@ -233,7 +234,6 @@ contract MicroChain is Mortal {
 		reputation[theLoan.borrower].amt -= theLoan.amount;
 		
 		addHistory(theLoan.borrower, _id, "repaid loan and marked project as finished");
-		finishedProjects.push(_id);
 		
 		processCert(_id, theLoan, theLoan.borrower);
 		
@@ -274,7 +274,6 @@ contract MicroChain is Mortal {
 		debt[theLoan.lender] -= theLoan.amount;
 		
 		addHistory(msg.sender, _id, "marked loan as defaulted and terminated project");
-		finishedProjects.push(_id);
 		
 		processCert(_id, theLoan, theLoan.borrower);
 		
@@ -398,9 +397,9 @@ contract MicroChain is Mortal {
 			   theRep.succeeded, theRep.outstanding, theRep.amt);
 	}
 	
-	function getFinished() returns (bytes8[]) {
+	function getAllProjects() returns (bytes8[]) {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
-		return finishedProjects;
+		return allProjects;
 	}
 	
 	function getProjectHistories(bytes8 _project) returns (bytes8[]) {

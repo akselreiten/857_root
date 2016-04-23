@@ -21,9 +21,19 @@ var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
 //  Instantiate contract
-var contractAddress = "0xa154994c58e4EFC49c680Db7354D962924Be6221";
+var contractAddress = "0x3FFa4376Ff2F527f4fB896C1bB8B80f55238C854";
 var microChain = web3.eth.contract(abi);
-var mcInstance = microChain.at(contractAddress);
+var myContractInstance = microChain.at(contractAddress);
+
+web3.eth.defaultAccount = getPK();
+var defaultAccount = web3.eth.defaultAccount;
+
+// http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
+function getPK() {
+    var data = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    pkData = data[0].split('=');
+    return pkData[1];
+}
 
 
 /////////////////////////////////
@@ -40,16 +50,28 @@ function getAllUsers(){
     return myContractInstance.getAllUsers.call();
 }
 
+//  Returns balance of public key
+function getBalance(public_key) {
+    return myContractInstance.getBalance.call(public_key).toNumber();
+}
+
+// Returns owned debt of public key
+function getDebt(public_key) {
+    return myContractInstance.getDebt.call(public_key).toNumber();
+}
+
 //  Returns reputation of a public key
 function getReputation(public_key) {
     var curr_rep = myContractInstance.getReputation.call();
     var reputation = new Object();
     reputation.cash_rep = curr_rep[0].toNumber();
     reputation.defaulted = curr_rep[1].toNumber();
-    reputation.paid = curr_rep[2].toNumber();
-    reputation.outstanding = curr_rep[3].toNumber();
-    reputation.amount = curr_rep[4].toNumber();
-    return reputation
+    reputation.failed = curr_rep[2].toNumber();
+    reputation.paid = curr_rep[3].toNumber();
+    reputation.succeeded = curr_rep[4].toNumber();
+    reputation.outstanding = curr_rep[5].toNumber();
+    reputation.amount = curr_rep[6].toNumber();
+    return reputation;
 }
 
 //  Get all requests and return array
@@ -64,39 +86,25 @@ function getRequests(){
         request.amount = curr_request[1].toNumber();
         request.duration = curr_request[2].toNumber();
         request.bonus = curr_request[3].toNumber();
-        request.name = curr_request[4];
+        request.certifications = curr_request[4].toNumber();
+        request.description = curr_request[5];
+        console.log(request);
         requestArray.push(request);
     });
     return requestArray;
 }
 
-//  Returns balance of public key
-function getBalance(public_key) {
-    return myContractInstance.getBalance.call(public_key).toNumber();
+//  Issues a request for a loan (returns boolean)
+function issueRequest(amount,duration,bonus,certifications,description,fromAddress){
+    if (myContractInstance.issueRequest.call(amount,duration,bonus,certifications,description,{from:fromAddress})){
+        var gas = myContractInstance.issueRequest.estimateGas(amount,duration,bonus,certifications,description);
+        myContractInstance.issueRequest.sendTransaction(amount,duration,bonus,certifications,description,{from:fromAddress, gas:gas*2});
+        return true;
+    }return false;
 }
 
-//  Returns outstanding loans given a public key
-function getUserLoans(public_key){
-    var loans = myContractInstance.getOutstandingLoans.call(public_key);
-    var borrowed = [];
-    var lent = [];
-    loans.forEach(function(d){
-        var curr_loan = myContractInstance.getSingleLoan.call(d);
-        var loan = new Object();
-        loan.lender = curr_loan[0];
-        loan.borrower = curr_loan[1];
-        loan.amount = curr_loan[2].toNumber();
-        loan.end_time = curr_loan[3].toNumber();
-        loan.bonus = curr_loan[4].toNumber();
-        loan.name = curr_loan[5];
-        loan.id = d;
-        if (loan.lender == public_key){lent.push(loan);}
-        else{borrowed.push(loan);}
-    });
-    var userLoan = new Object();
-    userLoan.borrowed = borrowed;
-    userLoan.lent = lent;
-    return userLoan;
+function checkFulfill(id, fromAddress) {
+    return 
 }
 
 //  Fulfil a request given the ID of the request and publicKey from fulfiller
@@ -108,29 +116,52 @@ function fulfillRequest(id,fromAddress){
     }return false;
 }
 
-//  Issues a request for a loan (returns boolean)
-function issueRequest(amount,duration,bonus,name,fromAddress){
-    if (myContractInstance.issueRequest.call(amount,duration,bonus,name,{from:fromAddress})){
-        var gas = myContractInstance.issueRequest.estimateGas(amount,duration,bonus,name);
-        myContractInstance.issueRequest.sendTransaction(amount,duration,bonus,name,{from:fromAddress, gas:gas*2});
-        return true;
-    }return false;
+//  Returns outstanding loans given a public key
+function getUserLoans(public_key){
+    var loans = myContractInstance.getOutstandingLoans.call(public_key);
+    var borrowed = [];
+    var lent = [];
+    loans.forEach(function(d){
+        var loan = getSingleLoan(d);
+        console.log(loan);
+        if (loan.lender == public_key){lent.push(loan);}
+        else{borrowed.push(loan);}
+    });
+    var userLoan = new Object();
+    userLoan.borrowed = borrowed;
+    userLoan.lent = lent;
+    return userLoan;
+}
+
+function getSingleLoan(hash) {
+    var curr_loan = myContractInstance.getSingleLoan.call(hash);
+    var loan = new Object();
+    loan.lender = curr_loan[0];
+    loan.borrower = curr_loan[1];
+    loan.amount = curr_loan[2].toNumber();
+    loan.end_time = curr_loan[3].toNumber();
+    loan.bonus = curr_loan[4].toNumber();
+    loan.cert_target = curr_loan[5].toNumber();
+    loan.cur_cert = curr_loan[6].toNumber();
+    loan.description = curr_loan[5];
+    loan.id = d;
+    return loan;
 }
 
 //  Pays back a loan given its ID (returns boolean)
-function paybackLoan(id,fromAddress){
-    if (myContractInstance.payback.call(id,{from:fromAddress})){
-        var gas = myContractInstance.payback.estimateGas(id);
-        myContractInstance.payback.sendTransaction(id,{from:fromAddress, gas:gas*2});
+function finish(id,fromAddress){
+    if (myContractInstance.finish.call(id,{from:fromAddress})){
+        var gas = myContractInstance.finish.estimateGas(id);
+        myContractInstance.finish.sendTransaction(id,{from:fromAddress, gas:gas*2});
         return true;
     }return false;
 }
 
 //  Triggers default on a loan (returns boolean)
-function triggerDefault(id,fromAddress){
-    if (myContractInstance.trigger_default.call(id,{from:fromAddress})){
-        var gas = myContractInstance.trigger_default.estimateGas(id);
-        myContractInstance.trigger_default.sendTransaction(id,{from:fromAddress, gas:gas*2});
+function terminate(id,fromAddress){
+    if (myContractInstance.terminate.call(id,{from:fromAddress})){
+        var gas = myContractInstance.terminate.estimateGas(id);
+        myContractInstance.terminate.sendTransaction(id,{from:fromAddress, gas:gas*2});
         return true;
     }return false;
 }
@@ -144,13 +175,73 @@ function extendDuration(id,duration,fromAddress){
     }return false;
 }
 
+function certify(id,fromAddress){
+    if (myContractInstance.certify.call(id,{from:fromAddress})){
+        var gas = myContractInstance.certify.estimateGas(id);
+        myContractInstance.certify.sendTransaction(id,{from:fromAddress, gas:gas*2});
+        return true;
+    }return false;
+}
 
+function getAllProjects() {
+    return myContractInstance.getAllProjects.call();
+}
+
+function getProjectHistories(id) {
+    return myContractInstance.getProjectHistories.call(id);
+}
+
+function getUserHistories(public_key) {
+    return myContractInstance.getUserHistories.call(public_key);
+}
+
+//  Returns reputation of a public key
+function getHistory(hash) {
+    var curr_hist = myContractInstance.getSingleHistory.call();
+    var history = new Object();
+    history.user = curr_rep[0];
+    history.project = curr_rep[1];
+    history.time = curr_rep[2].toNumber();
+    history.description = curr_rep[3];
+    return history;
+}
+
+///////////////////////////////////////
+////      UTILITY FUNCTIONS         ///
+///////////////////////////////////////
+
+// Pass in amount and bonus; returns percent as string
+function toPercent(amount, bonus) {
+    var percentInterest = ((bonus / amount) * 100).toString();
+    var ind = percentInterest.indexOf('.');
+    if (ind > -1) {
+        percentInterest = percentInterest.substr(0,Math.min(ind + 3, percentInterest.length));
+    }
+    return percentInterest + "%";
+}
 
 ///////////////////////////////////////
 ////      HTML SPECIFIC         ///////
 ///////////////////////////////////////
 
-main();
+//main();
+
+$(document).ready(function() {
+    populateHeader();
+});
+
+
+function populateHeader() {
+    var userName = getUserName(defaultAccount);
+    $("#welcome").text("Welcome, " + userName + "!");
+
+    var balance = getBalance(defaultAccount);
+    var debt = getDebt(defaultAccount);
+
+    $("#table-user-name").text(userName);
+    $("#table-user-balance").text(balance.toString() + " BTC");
+    $("#table-user-debt").text(debt.toString() + " BTC");
+}
 
 function main(){
 

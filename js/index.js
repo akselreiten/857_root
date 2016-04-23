@@ -11,7 +11,6 @@ $(document).ready(function() {
 
 function nextPage() {
     var PK = $("#inputPK").val();
-    alert(PK);
     var dest = "requests.html?pk=" + PK;
     location.assign(dest);
 }

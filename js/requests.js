@@ -1,11 +1,30 @@
 $(document).ready(function() {
-    alert(getPK());
+    fillRequestTable();
+
+    $(".btn-select").click(function() {
+        var id = ($(this).prop("id"));
+    });
 });
 
-// http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
-function getPK() {
-    var data = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    pkData = data[0].split('=');
-    return pkData[1];
+function fillRequestTable(){
+    var curr_requests = getRequests();
+
+    curr_requests.forEach(function(d){
+        var requester = getUserName(d.public_key);
+        var htmlString = '<tr>';
+        var percentInterest = toPercent(d.amount,d.bonus);
+        htmlString += '<td class="td-text">' + requester + '</td><td class="td-text">' + d.description + '</td>';
+        htmlString += '<td class="td-text">'+d.amount + " BTC" +'</td><td class="td-text">'+percentInterest+'</td>';
+        htmlString += '<td class="td-text">'+d.duration+'</td><td class="td-text">'+d.certifications+'</td>';
+        htmlString += '<td> <button class="btn btn-select" id="' + d.id + '">Fulfill Request</button></td>';
+        $('#table-requests-tbody').append(htmlString);
+
+        //alert(checkFulfill(d.id, defaultAccount));
+
+        
+    });
 }
+
+
+
 

@@ -10,4 +10,12 @@ Sources - general reference
 - https://developer.mozilla.org/*
 - http://www.w3schools.com/*
 - http://solidity.readthedocs.org/*
+- http://api.jquery.com/*
+
+Libraries
+- Bootstrap
+- jQuery
+- Web3 (and dependencies)
+- BigNumber (and dependencies)
+- See folders 'js' and 'node_modules' for an exhaustive list
 
