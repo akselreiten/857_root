@@ -1,28 +1,21 @@
 /* YOUR CSS STYLES */
 body {
     background-color: #fbfbfb;
+    margin-top:60px;
+    margin-bottom:100px;
+    margin-left:100px;
+    margin-right:100px;
 }
 
-p {
-    color: gray;
+p{
+    font-size:10px;
 }
 
-/* Specifies style for colorpleth */
-.projection {
-    stroke: #a9a9a9;
+.row{
+    margin-top:30px;
+    margin-bottom:30px;
 }
-
-.headline {
-    margin-bottom: 5px;
-    margin-top: 30px;
-    text-align: center;
-}
-
-#chart-area {
-    font-size: 8px;
-}
-
-/* Button-inspiration from http://codepen.io/davekilljoy/pen/wHAvb */
+/* Button-inspiration from http://codepen.io/davekilljoy/pen/wHAvb
 button {
     position: relative;
 //display: block;
@@ -71,40 +64,4 @@ button {
 .btn-nav {
     color: gray;
     border: gray;
-}
-
-/*********************/
-/*  TOOLTIP OVERLAY  */
-/*********************/
-.d3-tip {
-    line-height: 1;
-    padding: 12px;
-    background: rgba(0,0,0,0.8);
-    color: #fff;
-    border-radius: 2px;
-}
-
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-    box-sizing: border-box;
-    display: inline;
-    font-size: 10px;
-    width: 100%;
-    line-height: 1;
-    color: rgba(0,0,0,0.8);
-    content: "\25BC";
-    position: absolute;
-    text-align: center;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-    margin: -1px 0 0;
-    top: 100%;
-    left: 0;
-}
-
-#tooltip-info {
-    color: gray;
-    font-size: 10px;
-}
+}*/
