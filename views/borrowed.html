@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="" name="description">
+    <title>MicroChain: Borrowed</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="col-md-2"></div>
+        <div class="col-md-1"><a href="requests.html"><button class="btn-nav">All Requests</button></a></div>
+        <div class="col-md-1"><a href="lent.html"><button class="btn-nav"> Lent</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav btn-current"><u>Borrowed</u></button></a></div>
+        <div class="col-md-1"><a href="reputation.html"><button class="btn-nav">Reputation</button></a></div>
+        <div class="col-md-1"><a href="certification.html"><button class="btn-nav">Certification</button></a></div>
+        <div class="col-md-1"><a href="historyUser.html"><button class="btn-nav">User History</button></a></div>
+        <div class="col-md-1"><a href="historyProject.html"><button class="btn-nav">Project History</button></a></div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <hr>
+
+    <!--User information-->
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Your are borrowing money for 5 projects </h4>
+        </div>
+        <div class="col-md-4" id="col-table-user">
+            <table class="table table-condensed table-hover table-sm" id="table-user">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Username</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="table-user-name">Aksel</td>
+                    <td id="table-user-balance">20</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--All requests-->
+    <div class="row">
+        <h3>Borrowed Loans<small></small></h3>
+
+        <table class="table table-condensed" id="table-requests">
+            <thead>
+            <tr>
+                <th>Lent From</th>
+                <th>Project Description</th>
+                <th>Amount</th>
+                <th>Interest</th>
+                <th>Payback date</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="table-requests-tbody">
+            <tr>
+                <td>Aksel</td>
+                <td>Water Pump</td>
+                <td>2000 BTC</td>
+                <td>20 BTC</td>
+                <td>12/12/17</td>
+                <td> <button class="btn btn-select">Pay back</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+<!-- End Container -->
+
+<!-- Load JS libraries -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

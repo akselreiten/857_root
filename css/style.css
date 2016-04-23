@@ -1,10 +1,11 @@
-/* YOUR CSS STYLES */
+/* GENERAL */
+
 body {
     background-color: #fbfbfb;
-    margin-top:60px;
-    margin-bottom:100px;
-    margin-left:100px;
-    margin-right:100px;
+    font-family: "Segoe UI";
+    margin-top:20px;
+    padding-left:0px;
+    padding-right:0px;
 }
 
 p{
@@ -12,22 +13,25 @@ p{
 }
 
 .row{
-    margin-top:30px;
-    margin-bottom:30px;
+    padding-left:50px;
+    padding-right:50px;
 }
-/* Button-inspiration from http://codepen.io/davekilljoy/pen/wHAvb
-button {
+
+
+
+/* BUTTONS */
+.btn-nav {
     position: relative;
 //display: block;
     height: 30px;
-    width: 180px;
+    width: 120px;
     margin: 10px 7px;
     padding: 5px;
     font-weight: 70;
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 2px;
     color: #383736;
-    border: 2px #383736 solid;
+    border: none;
     border-radius: 4px;
     text-transform: uppercase;
     outline: 0;
@@ -42,18 +46,17 @@ button {
     -webkit-transition: .08s ease-in;
 }
 
-.btn-filter:hover {
-    color: #f5f5f5;
+.btn-nav:hover {
+    color: orange;
 }
 
-.btn-filter:hover:before {
+.btn-nav:hover:before {
     top: 0;
 }
 
-.btn-filter:before {
+.btn-nav:before {
     content: "";
     position: absolute;
-    background: #383736;
     bottom: 0;
     left: 0;
     right: 0;
@@ -61,7 +64,43 @@ button {
     z-index: -1;
 }
 
-.btn-nav {
-    color: gray;
-    border: gray;
-}*/
+.btn-current{
+    color:green;
+}
+
+
+.btn-select {
+    position: relative;
+    height: 30px;
+    width: 120px;
+    padding: 5px;
+    font-weight: 70;
+    font-size: 10px;
+    letter-spacing: 2px;
+    /*color: #383736;*/
+    color:white;
+    border: 1px gray solid;
+    border-radius: 3px;
+    text-transform:none;
+    outline: 0;
+    overflow: hidden;
+    background: green;
+    z-index: 1;
+    cursor: pointer;
+    transition: .08s ease-in;
+    -o-transition: .08s ease-in;
+    -ms-transition: .08s ease-in;
+    -moz-transition: .08s ease-in;
+    -webkit-transition: .08s ease-in;
+}
+
+
+/* TABLES */
+
+#col-table-user{
+    padding-top:20px;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}

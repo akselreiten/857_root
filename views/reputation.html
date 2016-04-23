@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="" name="description">
+    <title>MicroChain: Reputation</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="col-md-2"></div>
+        <div class="col-md-1"><a href="requests.html"><button class="btn-nav">All Requests</button></a></div>
+        <div class="col-md-1"><a href="lent.html"><button class="btn-nav"> Lent</button></a></div>
+        <div class="col-md-1"><a href="borrowed.html"><button class="btn-nav">Borrowed</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav btn-current"><u>Reputation</u></button></a></div>
+        <div class="col-md-1"><a href="certification.html"><button class="btn-nav">Certification</button></a></div>
+        <div class="col-md-1"><a href="historyUser.html"><button class="btn-nav">User History</button></a></div>
+        <div class="col-md-1"><a href="historyProject.html"><button class="btn-nav">Project History</button></a></div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <hr>
+
+    <!--User information-->
+    <div class="row">
+        <div class="col-md-8">
+            <h3>User Reputation and Transaction History</h3>
+
+        </div>
+        <div class="col-md-4" id="col-table-user">
+            <table class="table table-condensed table-hover table-sm" id="table-user">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Your username</th>
+                    <th>Your balance</th>
+                    <th>Your reputation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="table-user-name">Aksel</td>
+                    <td id="table-user-balance">20</td>
+                    <td id="table-user-reputation">1</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Search for user-->
+    <div class="row">
+        <div class="col-md-6 input-group" id="input-publicKeyForm">
+            <input type="text" class="form-control" placeholder="Please type in a public key" id="input-publicKey">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button" id="input-btnPublicKey" onclick="main()">Reveal public key information</button>
+                    </span>
+        </div>
+
+        <div class="col-md-6">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Users
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="copyToClipboard('0x3E1f6a79635dB65564DAEDB58E46EF75B3A0D898')"> pkAksel </a></li>
+                    <li><a href="#" onclick="copyToClipboard('0x67A6443f760866722ca0F44ae7dc55243b462Db2')"> pkAksel2 </a></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--User History-->
+    <div class="row">
+        <h3>User History<small></small></h3>
+        <table class="table table-condensed" id="table-requests">
+            <thead>
+            <tr>
+                <th>Project Description</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Interest</th>
+                <th>Pay back</th>
+            </tr>
+            </thead>
+            <tbody id="table-requests-tbody">
+            <tr>
+                <td>Aksel</td>
+                <td>Water Pump</td>
+                <td>2000 BTC</td>
+                <td>20 BTC</td>
+                <td>12/12/17</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+<!-- End Container -->
+
+<!-- Load JS libraries -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

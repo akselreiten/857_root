@@ -173,7 +173,6 @@ function main(){
 }
 
 function clearTables(){
-    $("#table-requests-tbody").empty();
     $("#table-borrowed-tbody").empty();
     $("#table-lent-tbody").empty();
     $("#table-requests-tbody").empty();
