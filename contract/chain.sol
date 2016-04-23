@@ -157,7 +157,7 @@ contract MicroChain is Mortal {
 	/*
 	Lender calls to lend to a borrower.
 	*/
-	function fulfillRequest(bytes8 _id) {
+	function fulfillRequest(bytes8 _id) returns (bool) {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		
 		// Remove request from array
@@ -191,7 +191,7 @@ contract MicroChain is Mortal {
 		
 		delete requests[_id];
 		
-		return;
+		return true;
 	}
 	
 	/*
@@ -205,7 +205,7 @@ contract MicroChain is Mortal {
 	Pays back a loan.
 	Certification impact assessed.
 	*/
-	function finish(bytes8 _id) {
+	function finish(bytes8 _id) returns (bool) {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		
 		var theLoan = allLoans[_id];
@@ -237,14 +237,14 @@ contract MicroChain is Mortal {
 		
 		processCert(_id, theLoan, theLoan.borrower);
 		
-		return;
+		return true;
 	}
 	
 	/*
 	If past the deadline, defaults the loan (called by the lender)
 	Assesses certification impact.
 	*/
-	function terminate(bytes8 _id) {
+	function terminate(bytes8 _id) returns (bool) {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		
 		var theLoan = allLoans[_id];
@@ -277,20 +277,20 @@ contract MicroChain is Mortal {
 		
 		processCert(_id, theLoan, theLoan.borrower);
 		
-		return;
+		return true;
 	}
 	
 	/*
 	Give a loan more time.
 	*/
-	function extend(bytes8 _id, uint duration) {
+	function extend(bytes8 _id, uint duration) returns (bool){
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		
 		var theLoan = allLoans[_id];
 		if (msg.sender != theLoan.lender) throw;
 		theLoan.endTime += duration;
 		addHistory(msg.sender, _id, "extended deadline");
-		return;
+		return true;
 	}
 	
 	/*
@@ -299,7 +299,7 @@ contract MicroChain is Mortal {
 	/
 	*/
 	
-	function certify(bytes8 _id) {
+	function certify(bytes8 _id) returns (bool) {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		var theLoan = allLoans[_id];
 		if (msg.sender == theLoan.lender) throw;
@@ -312,7 +312,7 @@ contract MicroChain is Mortal {
 		theList.push(msg.sender);
 		theLoan.curCert++;
 		addHistory(msg.sender, _id, "certified project completion");
-		return;
+		return true;
 	}
 	
 	function processCert(bytes8 _id, Loan _theLoan, address _borrower) private {

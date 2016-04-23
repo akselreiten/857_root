@@ -21,7 +21,7 @@ var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
 //  Instantiate contract
-var contractAddress = "0x3FFa4376Ff2F527f4fB896C1bB8B80f55238C854";
+var contractAddress = "0x83CB9e5eB86f340f6052456813C75D0b2210d630";
 var microChain = web3.eth.contract(abi);
 var myContractInstance = microChain.at(contractAddress);
 
@@ -96,15 +96,13 @@ function getRequests(){
 
 //  Issues a request for a loan (returns boolean)
 function issueRequest(amount,duration,bonus,certifications,description,fromAddress){
-    if (myContractInstance.issueRequest.call(amount,duration,bonus,certifications,description,{from:fromAddress})){
-        var gas = myContractInstance.issueRequest.estimateGas(amount,duration,bonus,certifications,description);
-        myContractInstance.issueRequest.sendTransaction(amount,duration,bonus,certifications,description,{from:fromAddress, gas:gas*2});
-        return true;
-    }return false;
+    var gas = myContractInstance.issueRequest.estimateGas(amount,duration,bonus,certifications,description);
+    myContractInstance.issueRequest.sendTransaction(amount,duration,bonus,certifications,description,{from:fromAddress, gas:gas*2});
+    return true;
 }
 
 function checkFulfill(id, fromAddress) {
-    return 
+    return true;
 }
 
 //  Fulfil a request given the ID of the request and publicKey from fulfiller
