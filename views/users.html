@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="" name="description">
+    <title>MicroChain: Users</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <!-- Navbar -->
+    <div class="navbar">
+            <div class="col-md-3"></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav btn-current" id="btn-request"><u>All Requests</u></button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-lent">Lent</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-borrowed">Borrowed</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-users">Users</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-projects">Projects</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-logOut">Log Out</button></a></div>
+            <div class="col-md-3"></div>
+        </div>
+    <hr>
+
+    <!--User information-->
+    <div class="row">
+        <div class="col-md-12">
+            <h3>User Reputation and History</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select a User
+                    <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+            </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <table class="table table-condensed table-hover table-sm" id="table-user">
+                <tbody>
+                <tr id="cashRep">
+                <td class="repTitle">Cash Reputation </td>
+                </tr>
+                <tr id="paid">
+                <td class="repTitle">Paid Loans</td>
+                </tr>
+                <tr id="defaulted">
+                <td class="repTitle">Defaulted Loans </td>
+                </tr>
+                <tr id="succeeded">
+                <td class="repTitle">Successful Projects</td>
+                </tr>
+                <tr id="failed">
+                <td class="repTitle">Failed Projects</td>
+                </tr>
+                <tr id="outstanding">
+                <td class="repTitle">Currently Borrowed Loans</td>
+                </tr>
+                <tr id="amount">
+                <td class="repTitle">Currently Borrowed Amount</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Search for user-->
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="dropdown">
+                
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--User History-->
+    <div class="row">
+        <h3>Associated Projects<small></small></h3>
+        <table class="table table-condensed" id="table-history">
+            <tbody id="project-tbody">
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+<!-- End Container -->
+
+<!-- Load JS libraries -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../node_modules/web3/dist/web3.js"></script>
+    <script src="../node_modules/bignumber.js/bignumber.min.js"></script>
+    <script src="../data/contract.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/reputation.js"></script>
+</body>
+</html>
