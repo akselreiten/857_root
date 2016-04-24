@@ -8,7 +8,7 @@ $(document).ready(function() {
         populateTable(id);
         populateCert(id);
 
-        if (myContractInstance.certify.call(id,{from:fromAddress})) {
+        if (myContractInstance.certify.call(id,{from:defaultAccount})) {
             $("#cert").prop('disabled', false);
         }
     });

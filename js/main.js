@@ -228,7 +228,7 @@ $(document).ready(function() {
     $("#btn-borrowed").click(function() {nextPage("borrowed");});
     $("#btn-users").click(function() {nextPage("users");});
     $("#btn-projects").click(function() {nextPage("projects");});
-    $("#btn-home").click(function() {nextPage("index");});
+    $("#btn-logOut").click(function() {nextPage("index");});
 });
 
 function nextPage(dest) {
