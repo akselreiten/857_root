@@ -35,7 +35,7 @@ function populateRep(id) {
 }
 
 function populateProj(id) {
-    var projects = getAllProjects(id);
+    var projects = getUserProjects(id);
     console.log(id);
     console.log(projects);
     projects.forEach(function(d) {

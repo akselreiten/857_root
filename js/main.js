@@ -133,6 +133,10 @@ function getAllProjects() {
     return myContractInstance.getAllProjects.call();
 }
 
+function getUserProjects(public_key) {
+    return myContractInstance.getUserProjects.call(public_key);
+}
+
 function getCertifiers(id) {
     return myContractInstance.getCertifiers.call(id);
 }
@@ -228,7 +232,9 @@ $(document).ready(function() {
     $("#btn-borrowed").click(function() {nextPage("borrowed");});
     $("#btn-users").click(function() {nextPage("users");});
     $("#btn-projects").click(function() {nextPage("projects");});
-    $("#btn-logOut").click(function() {nextPage("index");});
+    $("#btn-logOut").click(function() {
+        location.assign("index.html");
+    });
 });
 
 function nextPage(dest) {
