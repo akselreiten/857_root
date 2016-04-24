@@ -220,18 +220,15 @@ function convertTimestamp(timestamp) {
 ////      HTML SPECIFIC         ///////
 ///////////////////////////////////////
 
-//main();
 
 $(document).ready(function() {
     populateHeader();
-
     $("#btn-request").click(function() {nextPage("requests");});
     $("#btn-lent").click(function() {nextPage("lent");});
     $("#btn-borrowed").click(function() {nextPage("borrowed");});
     $("#btn-users").click(function() {nextPage("users");});
     $("#btn-projects").click(function() {nextPage("projects");});
     $("#btn-home").click(function() {nextPage("index");});
-
 });
 
 
