@@ -21,6 +21,7 @@ contract MicroChain is Mortal {
 		uint certTarget; // Target number of certifications
 		uint curCert; // Current number of certifications
 		string description;
+		bool done;
 	}
 	
 	struct Request {
@@ -42,14 +43,6 @@ contract MicroChain is Mortal {
 		uint amount; // Amount of loaned cash held
 	}
 	
-	// For use in user and project history
-	struct History {
-		address user;
-		bytes8 project;
-		uint time;
-		string description;
-	}
-	
 	// Request info
 	bytes8[] public requestIDs;
 	mapping(bytes8 => Request) public requests;
@@ -67,11 +60,9 @@ contract MicroChain is Mortal {
 	mapping (address => uint) public balanceOf;
 	mapping(address => uint) public debt;
 	
-	// History information
-	mapping(address => bytes8[]) public userHistory;
-	mapping(bytes8 => bytes8[]) public projectHistory;
-	mapping(bytes8 => History) public allHistory;
+	// All projects ever started (excludes requests)
 	bytes8[] public allProjects;
+	mapping(address => bytes8[]) public userProjects;
 	
 	// Certifiers
 	mapping(bytes8 => address[]) public certifiers;
@@ -169,12 +160,13 @@ contract MicroChain is Mortal {
 		var theReq = requests[_id];
 		var theBorrower = theReq.borrower;
 		var theLender = msg.sender;
+		if (theLender == theBorrower) throw;
 		
 		userLoans[theBorrower].push(_id);
 		userLoans[theLender].push(_id);
 		allLoans[_id] = Loan({lender: theLender, borrower: theBorrower, amount: theReq.amount,
 							endTime: now + theReq.duration, bonus: theReq.bonus, certTarget: theReq.certifications,
-							curCert: 0, description: theReq.description});
+							  curCert: 0, description: theReq.description, done: false});
 		
 		// Move cash and debt
 		transfer(theBorrower, theReq.amount);
@@ -184,7 +176,8 @@ contract MicroChain is Mortal {
 		reputation[theBorrower].outstanding += 1;
 		reputation[theBorrower].amount += theReq.amount;
 		
-		addHistory(msg.sender, _id, "fulfilled request and started project");
+		userProjects[theBorrower].push(_id);
+		userProjects[theLender].push(_id);
 		allProjects.push(_id);
 		
 		return true;
@@ -229,9 +222,13 @@ contract MicroChain is Mortal {
 		reputation[theLoan.borrower].outstanding -= 1;
 		reputation[theLoan.borrower].amount -= theLoan.amount;
 		
-		addHistory(theLoan.borrower, _id, "repaid loan and marked project as finished");
-		
-		processCert(_id, theLoan, theLoan.borrower);
+		// Assess certifications and close the loan
+		if (theLoan.curCert < theLoan.certTarget) {
+			reputation[theLoan.borrower].failed += 1;
+		} else {
+			reputation[theLoan.borrower].succeeded += 1;
+		}
+		theLoan.done = true;
 		
 		return true;
 	}
@@ -269,9 +266,13 @@ contract MicroChain is Mortal {
 		// Debt is no longer relevant
 		debt[theLoan.lender] -= theLoan.amount;
 		
-		addHistory(msg.sender, _id, "marked loan as defaulted and terminated project");
-		
-		processCert(_id, theLoan, theLoan.borrower);
+		// Assess certifications and close the loan
+		if (theLoan.curCert < theLoan.certTarget) {
+			reputation[theLoan.borrower].failed += 1;
+		} else {
+			reputation[theLoan.borrower].succeeded += 1;
+		}
+		theLoan.done = true;
 		
 		return true;
 	}
@@ -285,7 +286,6 @@ contract MicroChain is Mortal {
 		var theLoan = allLoans[_id];
 		if (msg.sender != theLoan.lender) throw;
 		theLoan.endTime += duration;
-		addHistory(msg.sender, _id, "extended deadline");
 		return true;
 	}
 	
@@ -307,33 +307,7 @@ contract MicroChain is Mortal {
 		}
 		theList.push(msg.sender);
 		theLoan.curCert++;
-		addHistory(msg.sender, _id, "certified project completion");
 		return true;
-	}
-	
-	function processCert(bytes8 _id, Loan _theLoan, address _borrower) private {
-		if (_theLoan.curCert < _theLoan.certTarget) {
-			reputation[_borrower].failed += 1;
-			addHistory(_borrower, _id, "failed to get enough certifications");
-			return;
-		}
-		reputation[_borrower].succeeded += 1;
-		addHistory(_borrower, _id, "got enough certifications");
-	}
-
-	
-	/*
-	/
-	/ HISTORY
-	/
-	*/
-	
-	function addHistory(address _user, bytes8 _id, string _description) {
-		var histHash = bytes8(sha3(_user, _id, now, _description));
-		allHistory[histHash] = History({user: _user, project: _id, time: now, description: _description});
-		userHistory[_user].push(histHash);
-		projectHistory[_id].push(histHash);
-		return;
 	}
 	
 	/*
@@ -343,73 +317,55 @@ contract MicroChain is Mortal {
 	*/
 	
 	function getAllRequests() returns (bytes8[]) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		return requestIDs;
 	}
 	
 	function getRequest(bytes8 _id) returns (address, uint, uint, uint, uint, string) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		var theReq = requests[_id];
 		return (theReq.borrower, theReq.amount, theReq.duration, theReq.bonus, theReq.certifications, theReq.description);
 	}
 	
 	function getBalance(address _target) returns (uint) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		return balanceOf[_target];
 	}
 	
 	function getDebt(address _target) returns (uint) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		return debt[_target];
 	}
 	
 	function getAllUsers() returns (address[]) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		return allUsers;
 	}
 	
 	function getName(address _name) returns (string) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		return userMap[_name];
 	}
 	
 	function getOutstandingLoans(address _name) returns (bytes8[]) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		return userLoans[_name];
 	}
 	
-	function getSingleLoan(bytes8 _id) returns (address, address, uint, uint, uint, uint, uint, string) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
+	function getSingleLoan(bytes8 _id) returns (address, address, uint, uint, uint, uint, uint, string, bool) {
 		var theLoan = allLoans[_id];
 		return (theLoan.lender, theLoan.borrower, theLoan.amount, theLoan.endTime, theLoan.bonus,
-				theLoan.certTarget, theLoan.curCert, theLoan.description);
+				theLoan.certTarget, theLoan.curCert, theLoan.description, theLoan.done);
 	}
 	
 	function getReputation(address _name) returns (int, uint, uint, uint, uint, uint, uint) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		var theRep = reputation[_name];
 		return(theRep.cashRep, theRep.defaulted, theRep.failed, theRep.paid,
 			   theRep.succeeded, theRep.outstanding, theRep.amount);
 	}
 	
 	function getAllProjects() returns (bytes8[]) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
 		return allProjects;
 	}
 	
-	function getProjectHistories(bytes8 _project) returns (bytes8[]) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
-		return projectHistory[_project];
+	function getUserProjects(address _name) returns (bytes8[]) {
+		return userProjects[_name];
 	}
 	
-	function getUserHistories(address _user) returns (bytes8[]) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
-		return userHistory[_user];
-	}
-	
-	function getSingleHistory(bytes8 _id) returns (address, bytes8, uint, string) {
-		if (bytes(userMap[msg.sender]).length == 0) throw;
-		var theHist = allHistory[_id];
-		return (theHist.user, theHist.project, theHist.time, theHist.description);
+	function getCertifiers(bytes8 _id) returns(address[]) {
+		return certifiers[_id];
 	}
 }

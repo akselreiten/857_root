@@ -196,7 +196,7 @@
 							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
 							"value": {
 								"unit": 18,
-								"value": "0"
+								"value": "1000000000"
 							}
 						},
 						{
@@ -214,16 +214,62 @@
 							"isFunctionCall": true,
 							"label": "MicroChain.register()",
 							"parameters": {
-								"_user": "0x38f388fadf4a6a35c61c3f88194ec5ae162c8944",
-								"_name": "Francis",
+								"": "",
 								"_initial": "11000",
-								"": ""
+								"_name": "Francis",
+								"_user": "0x38f388fadf4a6a35c61c3f88194ec5ae162c8944",
+								"_amount": "",
+								"_duration": "",
+								"_bonus": "",
+								"_certifications": "",
+								"_description": ""
 							},
 							"saveStatus": true,
 							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
 							"value": {
 								"unit": 18,
-								"value": "0"
+								"value": "1000000000"
+							}
+						}
+					]
+				},
+				{
+					"hash": "",
+					"number": 2,
+					"status": "mined",
+					"transactions": [
+						{
+							"contractId": "<MicroChain - 0>",
+							"functionId": "issueRequest",
+							"gas": {
+								"value": "250000"
+							},
+							"gasAuto": true,
+							"gasPrice": {
+								"unit": 18,
+								"value": "100000"
+							},
+							"isContractCreation": false,
+							"isFunctionCall": true,
+							"label": "MicroChain.issueRequest()",
+							"parameters": {
+								"": "",
+								"_amount": "34",
+								"_bonus": "2",
+								"_certifications": "5",
+								"_description": "Something.",
+								"_duration": "1",
+								"_initial": "",
+								"_name": "",
+								"_target": "<MicroChain - 0>",
+								"_user": "<MicroChain - 0>",
+								"_id": ""
+							},
+							"saveStatus": true,
+							"sender": "cb73d9408c4720e230387d956eb0f829d8a4dd2c1055f96257167e14e7169074",
+							"value": {
+								"unit": 15,
+								"value": "1"
 							}
 						}
 					]

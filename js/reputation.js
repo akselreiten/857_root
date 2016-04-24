@@ -1,6 +1,5 @@
 $(document).ready(function() {
     populateDropdown();
-
     $(".repUser").click(function() {
         $(".repContent").remove();
         var id = ($(this).prop("id"));
@@ -21,6 +20,7 @@ function populateDropdown() {
 
 function populateRep(id) {
     var rep = getReputation(id);
+    console.log(id);
     console.log(rep);
     var htmlPrefix = '<td class="repContent">';
     var htmlSuffix = '</td>';
@@ -38,7 +38,6 @@ function populateHist(id) {
     console.log(allHist);
     allHist.forEach(function(d) {
         var curr = getHistory(d);
-        console.log(curr);
         var project = getSingleLoan(curr.project).description;
         var f = '<td>';
         var b = '</td>';
