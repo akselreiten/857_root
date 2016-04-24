@@ -21,7 +21,7 @@ var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
 //  Instantiate contract
-var contractAddress = "0x83CB9e5eB86f340f6052456813C75D0b2210d630";
+var contractAddress = "0xBb54d8c640F77Ff2c4B25248e23D2d2f76b72421";
 var microChain = web3.eth.contract(abi);
 var myContractInstance = microChain.at(contractAddress);
 
@@ -88,7 +88,6 @@ function getRequests(){
         request.bonus = curr_request[3].toNumber();
         request.certifications = curr_request[4].toNumber();
         request.description = curr_request[5];
-        console.log(request);
         requestArray.push(request);
     });
     return requestArray;
@@ -195,7 +194,6 @@ function getUserHistories(public_key) {
 //  Returns reputation of a public key
 function getHistory(hash) {
     var curr_hist = myContractInstance.getSingleHistory.call();
-    console.log(curr_hist);
     var history = new Object();
     history.user = curr_hist[0];
     history.project = curr_hist[1];
