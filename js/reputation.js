@@ -2,6 +2,7 @@ $(document).ready(function() {
     populateDropdown();
     $(".repUser").click(function() {
         $(".repContent").remove();
+        $("#project-tbody").empty();
         var id = ($(this).prop("id"));
         populateRep(id);
         populateProj(id);
@@ -35,6 +36,8 @@ function populateRep(id) {
 
 function populateProj(id) {
     var projects = getAllProjects(id);
+    console.log(id);
+    console.log(projects);
     projects.forEach(function(d) {
         var descrip = getSingleLoan(d).description;
         $("#project-tbody").append("<tr><td>" + descrip + "</td></tr>");
