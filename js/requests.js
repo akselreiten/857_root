@@ -48,6 +48,8 @@ $(document).ready(function() {
         }
         else {alert("Request did not go through")}
     });
+
+    $("#btn-explore").click(function() {nextPage();});
 });
 
 function hideIssueRequest(){
@@ -72,7 +74,7 @@ function fillRequestTable(){
             if (myContractInstance.fulfillRequest.call(d.id,{from:defaultAccount}) == false){
                 $("#"+d.id).prop('disabled',true);
                 $("#"+d.id).css('background-color',"red");
-                $("#"+d.id).text("Not enough money");
+                $("#"+d.id).text("Can't fulfil");
             }
 
         }

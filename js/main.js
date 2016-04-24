@@ -236,6 +236,14 @@ function convertTimestamp(timestamp) {
 
 $(document).ready(function() {
     populateHeader();
+
+    $("#btn-request").click(function() {nextPage("requests");});
+    $("#btn-lent").click(function() {nextPage("lent");});
+    $("#btn-borrowed").click(function() {nextPage("borrowed");});
+    $("#btn-users").click(function() {nextPage("users");});
+    $("#btn-projects").click(function() {nextPage("projects");});
+    $("#btn-home").click(function() {nextPage("index");});
+
 });
 
 
@@ -256,6 +264,12 @@ function clearTables(){
     $("#table-lent-tbody").empty();
     $("#table-requests-tbody").empty();
     $("#table-reputation-tbody").empty();
+}
+
+//  Takes in a string and returns the url of destination page
+function nextPage(destination){
+    var page = destination + ".html?pk=" + defaultAccount;
+    location.assign(page);
 }
 
 
@@ -309,7 +323,4 @@ function fillReputationTable(){
     });
 }
 
-function copyToClipboard(text) {
-    window.prompt("Copy to clipboard: Cmd+C, Enter", text);
-}
 

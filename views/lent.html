@@ -14,15 +14,14 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <div class="col-md-2"></div>
-        <div class="col-md-1"><a href="requests.html"><button class="btn-nav">All Requests</button></a></div>
-        <div class="col-md-1"><a href="#"><button class="btn-nav btn-current"> <u>Lent</u></button></a></div>
-        <div class="col-md-1"><a href="borrowed.html"><button class="btn-nav">Borrowed</button></a></div>
-        <div class="col-md-1"><a href="reputation.html"><button class="btn-nav">Reputation</button></a></div>
-        <div class="col-md-1"><a href="certification.html"><button class="btn-nav">Certification</button></a></div>
-        <div class="col-md-1"><a href="historyUser.html"><button class="btn-nav">User History</button></a></div>
-        <div class="col-md-1"><a href="historyProject.html"><button class="btn-nav">Project History</button></a></div>
-        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-request"><u>All Requests</u></button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav btn-current" id="btn-lent">Lent</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-borrowed">Borrowed</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-users">Users</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-projects">Projects</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-logOut">Log Out</button></a></div>
+        <div class="col-md-3"></div>
     </div>
 
     <hr>
@@ -30,7 +29,7 @@
     <!--User information-->
     <div class="row">
         <div class="col-md-8">
-            <h4>You currently have 5 outsanding loans</h4>
+            <h4 id="lent-headline"></h4>
         </div>
         <div class="col-md-4" id="col-table-user">
             <table class="table table-condensed table-hover table-sm" id="table-user">
@@ -38,12 +37,14 @@
                     <tr>
                         <th>Username</th>
                         <th>Balance</th>
+                        <th>Owned Debt</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td id="table-user-name">Aksel</td>
-                        <td id="table-user-balance">20</td>
+                        <td id="table-user-name"></td>
+                        <td id="table-user-balance"></td>
+                        <td id="table-user-debt"></td>
                     </tr>
                 </tbody>
             </table>
@@ -54,7 +55,7 @@
     <div class="row">
         <h3>Outstanding Loans <small></small></h3>
 
-        <table class="table table-condensed" id="table-requests">
+        <table class="table table-condensed" id="table-lent">
             <thead>
             <tr>
                 <th>Lent to</th>
@@ -65,7 +66,7 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody id="table-requests-tbody">
+            <tbody id="table-lent-tbody">
             </tbody>
         </table>
     </div>
