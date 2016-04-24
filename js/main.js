@@ -234,6 +234,10 @@ $(document).ready(function() {
 
 });
 
+function nextPage(dest) {
+    var finalDest = dest + ".html?pk=" + defaultAccount;
+    location.assign(finalDest);
+}
 
 function populateHeader() {
     var userName = getUserName(defaultAccount);
