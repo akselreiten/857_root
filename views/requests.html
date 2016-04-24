@@ -29,8 +29,11 @@
 
         <!--User information-->
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4">
                 <h2 id = "welcome">Welcome, Aksel!</h2>
+            </div>
+            <div class="col-md-4 btn-container">
+                <button class="btn btn-loan" id="request-loan">Request loan</button>
             </div>
             <div class="col-md-4" id="col-table-user">
                 <table class="table table-condensed table-hover table-sm" id="table-user">
@@ -73,10 +76,24 @@
             </table>
         </div>
 
-
-
     </div>
     <!-- End Container -->
+
+    <div id="cover"></div>
+
+    <div class="popup">
+        <div class="xButton">X</div>
+        <div class="popup-form">
+            <h4>Request Loan</h4>
+            <input type="text" class="form" placeholder="Description" id="popup-input-description">
+            <input type="text" class="form" placeholder="Amount" id="popup-input-amount">
+            <input type="text" class="form" placeholder="Interest Rate" id="popup-input-interest">
+            <input type="text" class="form" placeholder="Duration" id="popup-input-duration">
+            <input type="text" class="form" placeholder="Certifications" id="popup-input-certification">
+            <br>
+            <button class="btn form" id="submit-loan">Submit Loan</button>
+        </div>
+    </div>
 
     <!-- Load JS libraries -->
     <script src="../js/jquery.min.js"></script>

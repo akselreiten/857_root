@@ -121,7 +121,6 @@ function getUserLoans(public_key){
     var lent = [];
     loans.forEach(function(d){
         var loan = getSingleLoan(d);
-        console.log(loan);
         if (loan.lender == public_key){lent.push(loan);}
         else{borrowed.push(loan);}
     });
@@ -142,7 +141,7 @@ function getSingleLoan(hash) {
     loan.cert_target = curr_loan[5].toNumber();
     loan.cur_cert = curr_loan[6].toNumber();
     loan.description = curr_loan[5];
-    loan.id = d;
+    loan.id = hash;
     return loan;
 }
 
@@ -239,20 +238,6 @@ function populateHeader() {
     $("#table-user-name").text(userName);
     $("#table-user-balance").text(balance.toString() + " BTC");
     $("#table-user-debt").text(debt.toString() + " BTC");
-}
-
-function main(){
-
-    var public_key = $("#input-publicKey").val().toString();
-
-    alert(public_key);
-    clearTables();
-    fillUserTable(public_key);
-    fillBorrowedTable(public_key);
-    fillLentTable(public_key);
-    fillRequestTable();
-    fillReputationTable();
-
 }
 
 function clearTables(){
