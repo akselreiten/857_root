@@ -2,6 +2,7 @@ Sources - specifics
 - index.html background: http://e2ua.com/WDF-2335530.html
 - URL parameter extraction: http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
 - CSS selection: http://stackoverflow.com/questions/27747072/vertical-align-in-bootstrap-table
+- Font: Open Sans by Google
 
 Sources - general reference
 - Ethereum - platform (see GitHub, blog, and website)
