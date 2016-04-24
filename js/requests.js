@@ -70,8 +70,8 @@ function fillRequestTable(){
 
             //  Checks if balance is high enough
             if (myContractInstance.fulfillRequest.call(d.id,{from:defaultAccount}) == false){
-                $("#"+d.id).prop('disabled',true)
-                $("#"+d.id).css('background-color',"red")
+                $("#"+d.id).prop('disabled',true);
+                $("#"+d.id).css('background-color',"red");
                 $("#"+d.id).text("Not enough money");
             }
 
