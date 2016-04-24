@@ -139,7 +139,7 @@ function getSingleLoan(hash) {
     loan.bonus = curr_loan[4].toNumber();
     loan.cert_target = curr_loan[5].toNumber();
     loan.cur_cert = curr_loan[6].toNumber();
-    loan.description = curr_loan[5];
+    loan.description = curr_loan[7];
     loan.id = hash;
     return loan;
 }
