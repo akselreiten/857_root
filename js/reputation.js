@@ -2,9 +2,10 @@ $(document).ready(function() {
     populateDropdown();
     $(".repUser").click(function() {
         $(".repContent").remove();
+        $("#project-tbody").empty();
         var id = ($(this).prop("id"));
         populateRep(id);
-        populateHist(id);
+        populateProj(id);
     });
 });
 
@@ -33,16 +34,12 @@ function populateRep(id) {
     $("#amount").append(htmlPrefix + rep.amount + htmlSuffix);
 }
 
-function populateHist(id) {
-    var allHist = getUserHistories(id);
-    console.log(allHist);
-    allHist.forEach(function(d) {
-        var curr = getHistory(d);
-        var project = getSingleLoan(curr.project).description;
-        var f = '<td>';
-        var b = '</td>';
-
-        var html = f + curr.time + b + f + project + b + f + curr.description + b;
-        $("#history-tbody").append('<tr>' + html + '</tr>');
+function populateProj(id) {
+    var projects = getAllProjects(id);
+    console.log(id);
+    console.log(projects);
+    projects.forEach(function(d) {
+        var descrip = getSingleLoan(d).description;
+        $("#project-tbody").append("<tr><td>" + descrip + "</td></tr>");
     });
 }

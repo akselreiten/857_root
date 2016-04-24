@@ -300,13 +300,16 @@ contract MicroChain is Mortal {
 		var theLoan = allLoans[_id];
 		if (msg.sender == theLoan.lender) throw;
 		if (msg.sender == theLoan.borrower) throw;
+		if (theLoan.done) throw;
 		
 		var theList = certifiers[_id];
 		for (var i = 0; i < theList.length; i++) {
 			if (theList[i] == msg.sender) throw;
 		}
+		
 		theList.push(msg.sender);
 		theLoan.curCert++;
+		userProjects[msg.sender].push(_id);
 		return true;
 	}
 	

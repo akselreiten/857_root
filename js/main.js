@@ -21,7 +21,7 @@ var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
 //  Instantiate contract
-var contractAddress = "0x81BA4EBf53931ADBBF8907fe057F5E624C0dE14A";
+var contractAddress = "0x7204dFE48ad90d5e0dA67374f384b021aFdB891f";
 var microChain = web3.eth.contract(abi);
 var myContractInstance = microChain.at(contractAddress);
 
@@ -129,6 +129,14 @@ function getUserLoans(public_key){
     return userLoan;
 }
 
+function getAllProjects() {
+    return myContractInstance.getAllProjects.call();
+}
+
+function getCertifiers(id) {
+    return myContractInstance.getCertifiers.call(id);
+}
+
 function getSingleLoan(hash) {
     var curr_loan = myContractInstance.getSingleLoan.call(hash);
     var loan = new Object();
@@ -140,6 +148,7 @@ function getSingleLoan(hash) {
     loan.cert_target = curr_loan[5].toNumber();
     loan.cur_cert = curr_loan[6].toNumber();
     loan.description = curr_loan[7];
+    loan.done = curr_loan[8];
     loan.id = hash;
     return loan;
 }
@@ -179,28 +188,7 @@ function certify(id,fromAddress){
     }return false;
 }
 
-function getAllProjects() {
-    return myContractInstance.getAllProjects.call();
-}
 
-function getProjectHistories(id) {
-    return myContractInstance.getProjectHistories.call(id);
-}
-
-function getUserHistories(public_key) {
-    return myContractInstance.getUserHistories.call(public_key);
-}
-
-//  Returns reputation of a public key
-function getHistory(hash) {
-    var curr_hist = myContractInstance.getSingleHistory.call();
-    var history = new Object();
-    history.user = curr_hist[0];
-    history.project = curr_hist[1];
-    history.time = curr_hist[2].toNumber();
-    history.description = curr_hist[3];
-    return history;
-}
 
 ///////////////////////////////////////
 ////      UTILITY FUNCTIONS         ///
@@ -258,69 +246,3 @@ function populateHeader() {
     $("#table-user-balance").text(balance.toString() + " BTC");
     $("#table-user-debt").text(debt.toString() + " BTC");
 }
-
-function clearTables(){
-    $("#table-borrowed-tbody").empty();
-    $("#table-lent-tbody").empty();
-    $("#table-requests-tbody").empty();
-    $("#table-reputation-tbody").empty();
-}
-
-//  Takes in a string and returns the url of destination page
-function nextPage(destination){
-    var page = destination + ".html?pk=" + defaultAccount;
-    location.assign(page);
-}
-
-
-//  Fills user table given a public key
-function fillUserTable(x) {
-    if (x == null || x == "") {
-        alert("Public Key must be filled out");
-        return false;
-    }else{
-        $("#table-user-publicKey").html(x)
-        $("#table-user-name").html(getUserName(x));
-        $("#table-user-balance").html(getBalance(x))
-    }
-    fillLentTable()
-}
-
-//  Fills request table regardless of public key
-function fillRequestTable(){
-    var curr_requests = getRequests();
-    curr_requests.forEach(function(d){
-        $('#table-requests').append('<tr><td>' + d.name+'</td><td>'+d.amount+'</td><td>'+d.bonus+'</td><td>'+d.duration+'</td></tr>');
-    });
-}
-
-//  Fills out borrowed table given a public key
-function fillBorrowedTable(public_key){
-    var public_key = $("#input-publicKey").val().toString();
-    var loans = getUserLoans(public_key);
-    loans["borrowed"].forEach(function(d){
-        var lender = getUserName(d.lender);
-        $('#table-borrowed').append('<tr><td>'+d.name+'</td><td>'+lender+'</td><td>'+d.amount+'</td><td>'+d.end_time+'</td></tr>');
-    })
-}
-
-//  Fills out borrowed table given a public key
-function fillLentTable(public_key){
-    var loans = getUserLoans(public_key);
-    loans["lent"].forEach(function(d){
-        var lender = getUserName(d.lender);
-        $('#table-lent').append('<tr><td>'+d.name+'</td><td>'+lender+'</td><td>'+d.amount+'</td><td>'+d.end_time+'</td></tr>');
-    })
-}
-
-//  Fills out reputation table for all users of the chain
-function fillReputationTable(){
-    var users = getAllUsers();
-    users.forEach(function(pk){
-        var reputation = getReputation(pk);
-        var name = getUserName(pk);
-        $('#table-reputation').append('<tr><td>'+name+'</td><td>'+reputation+'</td></tr>');
-    });
-}
-
-
