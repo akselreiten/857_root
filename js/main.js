@@ -21,7 +21,7 @@ var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
 //  Instantiate contract
-var contractAddress = "0xBb54d8c640F77Ff2c4B25248e23D2d2f76b72421";
+var contractAddress = "0x81BA4EBf53931ADBBF8907fe057F5E624C0dE14A";
 var microChain = web3.eth.contract(abi);
 var myContractInstance = microChain.at(contractAddress);
 
@@ -32,7 +32,7 @@ var defaultAccount = web3.eth.defaultAccount;
 function getPK() {
     var data = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     pkData = data[0].split('=');
-    return pkData[1];
+    return pkData[1].split('#')[0];
 }
 
 
@@ -62,7 +62,7 @@ function getDebt(public_key) {
 
 //  Returns reputation of a public key
 function getReputation(public_key) {
-    var curr_rep = myContractInstance.getReputation.call();
+    var curr_rep = myContractInstance.getReputation.call(public_key);
     var reputation = new Object();
     reputation.cash_rep = curr_rep[0].toNumber();
     reputation.defaulted = curr_rep[1].toNumber();
