@@ -142,7 +142,7 @@ function getSingleLoan(hash) {
     loan.cert_target = curr_loan[5].toNumber();
     loan.cur_cert = curr_loan[6].toNumber();
     loan.description = curr_loan[5];
-    loan.id = d;
+    loan.id = hash;
     return loan;
 }
 
@@ -196,11 +196,12 @@ function getUserHistories(public_key) {
 //  Returns reputation of a public key
 function getHistory(hash) {
     var curr_hist = myContractInstance.getSingleHistory.call();
+    console.log(curr_hist);
     var history = new Object();
-    history.user = curr_rep[0];
-    history.project = curr_rep[1];
-    history.time = curr_rep[2].toNumber();
-    history.description = curr_rep[3];
+    history.user = curr_hist[0];
+    history.project = curr_hist[1];
+    history.time = curr_hist[2].toNumber();
+    history.description = curr_hist[3];
     return history;
 }
 

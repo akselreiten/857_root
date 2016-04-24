@@ -39,7 +39,7 @@ contract MicroChain is Mortal {
 		uint paid; // Number of loans paid
 		uint succeeded; // Number of projects succeeded (enough certifications)
 		uint outstanding; // Outstanding number of loans/projects
-		uint amt; // Amount of loaned cash held
+		uint amount; // Amount of loaned cash held
 	}
 	
 	// For use in user and project history
@@ -146,11 +146,10 @@ contract MicroChain is Mortal {
 	*/
 	function issueRequest(uint _amount, uint _duration, uint _bonus, uint _certifications, string _description) {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
-		var newReq = Request({borrower: msg.sender, amount: _amount, duration: _duration, bonus: _bonus,
-							  certifications: _certifications, description: _description});
 		var newHash = bytes8(sha3(msg.sender, now, _amount, _duration, _bonus, _certifications, _description));
 		requestIDs.push(newHash);
-		requests[newHash] = newReq;
+		requests[newHash] = Request({borrower: msg.sender, amount: _amount, duration: _duration, bonus: _bonus,
+							  certifications: _certifications, description: _description});
 		return;
 	}
 	
@@ -171,12 +170,11 @@ contract MicroChain is Mortal {
 		var theBorrower = theReq.borrower;
 		var theLender = msg.sender;
 		
-		var theLoan = Loan({lender: theLender, borrower: theBorrower, amount: theReq.amount,
-							endTime: now + theReq.duration, bonus: theReq.bonus, certTarget: theReq.certifications,
-							curCert: 0, description: theReq.description});
 		userLoans[theBorrower].push(_id);
 		userLoans[theLender].push(_id);
-		allLoans[_id] = theLoan;
+		allLoans[_id] = Loan({lender: theLender, borrower: theBorrower, amount: theReq.amount,
+							endTime: now + theReq.duration, bonus: theReq.bonus, certTarget: theReq.certifications,
+							curCert: 0, description: theReq.description});
 		
 		// Move cash and debt
 		transfer(theBorrower, theReq.amount);
@@ -184,12 +182,10 @@ contract MicroChain is Mortal {
 		
 		// Update reputation
 		reputation[theBorrower].outstanding += 1;
-		reputation[theBorrower].amt += theReq.amount;
+		reputation[theBorrower].amount += theReq.amount;
 		
 		addHistory(msg.sender, _id, "fulfilled request and started project");
 		allProjects.push(_id);
-		
-		delete requests[_id];
 		
 		return true;
 	}
@@ -231,7 +227,7 @@ contract MicroChain is Mortal {
 		reputation[theLoan.borrower].cashRep += int(theLoan.amount + theLoan.bonus);
 		reputation[theLoan.borrower].paid += 1;
 		reputation[theLoan.borrower].outstanding -= 1;
-		reputation[theLoan.borrower].amt -= theLoan.amount;
+		reputation[theLoan.borrower].amount -= theLoan.amount;
 		
 		addHistory(theLoan.borrower, _id, "repaid loan and marked project as finished");
 		
@@ -269,7 +265,7 @@ contract MicroChain is Mortal {
 		reputation[theLoan.borrower].cashRep -= int(toPay);
 		reputation[theLoan.borrower].defaulted += 1;
 		reputation[theLoan.borrower].outstanding -= 1;
-		reputation[theLoan.borrower].amt -= theLoan.amount;
+		reputation[theLoan.borrower].amount -= theLoan.amount;
 		// Debt is no longer relevant
 		debt[theLoan.lender] -= theLoan.amount;
 		
@@ -333,9 +329,8 @@ contract MicroChain is Mortal {
 	*/
 	
 	function addHistory(address _user, bytes8 _id, string _description) {
-		var newHistory = History({user: _user, project: _id, time: now, description: _description});
-		var histHash = bytes8(sha3(newHistory.user, newHistory.project, newHistory.time, newHistory.description));
-		allHistory[histHash] = newHistory;
+		var histHash = bytes8(sha3(_user, _id, now, _description));
+		allHistory[histHash] = History({user: _user, project: _id, time: now, description: _description});
 		userHistory[_user].push(histHash);
 		projectHistory[_id].push(histHash);
 		return;
@@ -394,7 +389,7 @@ contract MicroChain is Mortal {
 		if (bytes(userMap[msg.sender]).length == 0) throw;
 		var theRep = reputation[_name];
 		return(theRep.cashRep, theRep.defaulted, theRep.failed, theRep.paid,
-			   theRep.succeeded, theRep.outstanding, theRep.amt);
+			   theRep.succeeded, theRep.outstanding, theRep.amount);
 	}
 	
 	function getAllProjects() returns (bytes8[]) {

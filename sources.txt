@@ -12,6 +12,7 @@ Sources - general reference
 - http://www.w3schools.com/*
 - http://solidity.readthedocs.org/*
 - http://api.jquery.com/*
+- https://en.wikipedia.org/wiki/Hash_function
 
 Libraries
 - Bootstrap

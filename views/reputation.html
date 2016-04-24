@@ -29,24 +29,44 @@
 
     <!--User information-->
     <div class="row">
-        <div class="col-md-8">
-            <h3>User Reputation and Transaction History</h3>
-
+        <div class="col-md-12">
+            <h3>User Reputation and History</h3>
         </div>
-        <div class="col-md-4" id="col-table-user">
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select a User
+                    <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+            </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
             <table class="table table-condensed table-hover table-sm" id="table-user">
-                <thead class="thead-inverse">
-                <tr>
-                    <th>Your username</th>
-                    <th>Your balance</th>
-                    <th>Your reputation</th>
-                </tr>
-                </thead>
                 <tbody>
-                <tr>
-                    <td id="table-user-name">Aksel</td>
-                    <td id="table-user-balance">20</td>
-                    <td id="table-user-reputation">1</td>
+                <tr id="cashRep">
+                <td class="repTitle">Cash Reputation </td>
+                </tr>
+                <tr id="paid">
+                <td class="repTitle">Paid Loans</td>
+                </tr>
+                <tr id="defaulted">
+                <td class="repTitle">Defaulted Loans </td>
+                </tr>
+                <tr id="succeeded">
+                <td class="repTitle">Successful Projects</td>
+                </tr>
+                <tr id="failed">
+                <td class="repTitle">Failed Projects</td>
+                </tr>
+                <tr id="outstanding">
+                <td class="repTitle">Currently Borrowed Loans</td>
+                </tr>
+                <tr id="amount">
+                <td class="repTitle">Currently Borrowed Amount</td>
                 </tr>
                 </tbody>
             </table>
@@ -55,21 +75,10 @@
 
     <!-- Search for user-->
     <div class="row">
-        <div class="col-md-6 input-group" id="input-publicKeyForm">
-            <input type="text" class="form-control" placeholder="Please type in a public key" id="input-publicKey">
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button" id="input-btnPublicKey" onclick="main()">Reveal public key information</button>
-                    </span>
-        </div>
 
         <div class="col-md-6">
             <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">Users
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" onclick="copyToClipboard('0x3E1f6a79635dB65564DAEDB58E46EF75B3A0D898')"> pkAksel </a></li>
-                    <li><a href="#" onclick="copyToClipboard('0x67A6443f760866722ca0F44ae7dc55243b462Db2')"> pkAksel2 </a></li>
-                </ul>
+                
             </div>
         </div>
 
@@ -78,24 +87,18 @@
 
     <!--User History-->
     <div class="row">
-        <h3>User History<small></small></h3>
-        <table class="table table-condensed" id="table-requests">
+        <h3>History<small></small></h3>
+        <table class="table table-condensed" id="table-history">
             <thead>
             <tr>
-                <th>Project Description</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Interest</th>
-                <th>Pay back</th>
+                <th>Timestamp</th>
+                <th>Project</th>
+                <th>Action</th>
             </tr>
             </thead>
-            <tbody id="table-requests-tbody">
+            <tbody id="history-tbody">
             <tr>
-                <td>Aksel</td>
-                <td>Water Pump</td>
-                <td>2000 BTC</td>
-                <td>20 BTC</td>
-                <td>12/12/17</td>
+
             </tr>
             </tbody>
         </table>
@@ -107,8 +110,12 @@
 <!-- End Container -->
 
 <!-- Load JS libraries -->
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/main.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../node_modules/web3/dist/web3.js"></script>
+    <script src="../node_modules/bignumber.js/bignumber.min.js"></script>
+    <script src="../data/contract.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/reputation.js"></script>
 </body>
 </html>
