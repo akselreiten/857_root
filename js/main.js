@@ -118,10 +118,10 @@ function getUserLoans(public_key){
     var loans = myContractInstance.getOutstandingLoans.call(public_key);
     var borrowed = [];
     var lent = [];
-    loans.forEach(function(d){
+    loans.forEach(function(d) {
         var loan = getSingleLoan(d);
-        if (loan.lender == public_key){lent.push(loan);}
-        else{borrowed.push(loan);}
+        if (loan.lender.toLowerCase() == public_key.toLowerCase()) {lent.push(loan);}
+        if (loan.borrower.toLowerCase() == public_key.toLowerCase()) {borrowed.push(loan);}
     });
     var userLoan = new Object();
     userLoan.borrowed = borrowed;
@@ -214,6 +214,18 @@ function toPercent(amount, bonus) {
         percentInterest = percentInterest.substr(0,Math.min(ind + 3, percentInterest.length));
     }
     return percentInterest + "%";
+}
+
+//  Pass in UNIX timestamp; returns time as string
+function convertTimestamp(timestamp) {
+    var d = new Date(timestamp * 1000),
+        yyyy = d.getFullYear(),
+        mm = ('0' + (d.getMonth() + 1)).slice(-2),
+        dd = ('0' + d.getDate()).slice(-2),
+        time;
+    time = mm + '-' + dd + '-' + yyyy;
+
+    return time;
 }
 
 ///////////////////////////////////////
