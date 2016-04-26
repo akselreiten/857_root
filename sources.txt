@@ -15,6 +15,7 @@ Sources - general reference
 - https://en.wikipedia.org/wiki/Hash_function
 
 Libraries
+- Node (just npm)
 - Bootstrap
 - jQuery
 - Web3 (and dependencies)

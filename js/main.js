@@ -21,7 +21,7 @@ var web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
 //  Instantiate contract
-var contractAddress = "0x7204dFE48ad90d5e0dA67374f384b021aFdB891f";
+var contractAddress = "0xf2cb6Ad5002244b73a5ba006E64c8aD8C544d1F3";
 var microChain = web3.eth.contract(abi);
 var myContractInstance = microChain.at(contractAddress);
 
