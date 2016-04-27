@@ -13,7 +13,7 @@
 
         <!-- Navbar -->
         <div class="navbar">
-            <div class="col-md-3"></div>
+            <div class="col-md-3" id="username"></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav btn-current" id="btn-request"><u>All Requests</u></button></a></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-lent">Lent</button></a></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-borrowed">Borrowed</button></a></div>
@@ -25,25 +25,22 @@
         <hr>
 
         <!--User information-->
-        <div class="row">
-            <div class="col-md-3">
-                <h2 id = "welcome"></h2>
-            </div>
-            <div class="col-md-5 btn-container">
+        <div class ="row">
+            
+            <div class="col-md-8" id="loans-col">
+                <h3 id = "welcome"></h3><br>
                 <button class="btn btn-loan" id="request-loan">Request loan</button>
             </div>
             <div class="col-md-4" id="col-table-user">
                 <table class="table table-condensed table-hover table-sm" id="table-user">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>Username</th>
                             <th>Balance</th>
                             <th>Owned Debt</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="table-user-name"></td>
                             <td id="table-user-balance"></td>
                             <td id="table-user-debt"></td>
                         </tr>
@@ -54,7 +51,7 @@
 
         <!--All requests-->
         <div class="row">
-            <h3>All Project Requests</h3>
+            <h4 id="all-requests">All Project Requests</h4>
 
             <table class="table table-condensed" id="table-requests">
                 <thead>
@@ -81,14 +78,14 @@
     <div class="popup">
         <div class="xButton">X</div>
         <div class="popup-form">
-            <h4>Request Loan</h4>
+            <h4 id="req-loan">Request Loan</h4>
             <input type="text" class="form" placeholder="Description" id="popup-input-description">
-            <input type="text" class="form" placeholder="Amount" id="popup-input-amount">
-            <input type="text" class="form" placeholder="Interest Rate" id="popup-input-interest">
-            <input type="text" class="form" placeholder="Duration" id="popup-input-duration">
-            <input type="text" class="form" placeholder="Certifications" id="popup-input-certification">
+            <input type="text" class="form" placeholder="Amount in BTC" id="popup-input-amount">
+            <input type="text" class="form" placeholder="% Interest" id="popup-input-interest">
+            <input type="text" class="form" placeholder="Days to Completion" id="popup-input-duration">
+            <input type="text" class="form" placeholder="# Certifications Required" id="popup-input-certification">
             <br>
-            <button class="btn form" id="submit-loan">Submit Loan</button>
+            <button class="btn form" id="submit-loan">Submit Request</button>
         </div>
     </div>
 

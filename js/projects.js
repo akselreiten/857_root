@@ -5,6 +5,7 @@ $(document).ready(function() {
         $(".projContent").remove();
         $("#cert-tbody").empty();
         id = ($(this).prop("id"));
+        $("#curr-user").text(getUserName(id));
         populateTable(id);
         populateCert(id);
 
@@ -16,7 +17,7 @@ $(document).ready(function() {
     $("#cert").prop('disabled', true);
 
     $("#cert").click(function() {
-        certify(id, defaultAccount);
+        console.log(certify(id, defaultAccount));
         $("#cert").prop('disabled', true);
     });
 
@@ -36,7 +37,7 @@ function populateTable(id) {
     var proj = getSingleLoan(id);
     var htmlPrefix = '<td class="projContent">';
     var htmlSuffix = '</td>';
-    $("#description").append(htmlPrefix + proj.description + htmlSuffix);
+    $("#curr-proj").text(proj.description);
     $("#lender").append(htmlPrefix + getUserName(proj.lender) + htmlSuffix);
     $("#borrower").append(htmlPrefix + getUserName(proj.borrower) + htmlSuffix);
     $("#amount").append(htmlPrefix + proj.amount + htmlSuffix);

@@ -13,7 +13,7 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <div class="col-md-3"></div>
+        <div class="col-md-3" id="username"></div>
         <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-request">All Requests</button></a></div>
         <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-lent">Lent</button></a></div>
         <div class="col-md-1"><a href="#"><button class="btn-nav btn-current" id="btn-borrowed"><u>Borrowed</u></button></a></div>
@@ -27,21 +27,19 @@
 
     <!--User information-->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8" id="borr-headline-col">
             <h4 id="borrowed-headline"></h4>
         </div>
         <div class="col-md-4" id="col-table-user">
             <table class="table table-condensed table-hover table-sm" id="table-user">
                 <thead class="thead-inverse">
                 <tr>
-                    <th>Username</th>
                     <th>Balance</th>
                     <th>Owned Debt</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td id="table-user-name"></td>
                     <td id="table-user-balance"></td>
                     <td id="table-user-debt"></td>
                 </tr>

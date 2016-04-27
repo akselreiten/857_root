@@ -9,9 +9,9 @@ $(document).ready(function() {
     $(".btn-select").click(function() {
         var id = ($(this).prop("id"));
         if (myContractInstance.finish.call(id,{from:defaultAccount})){
-            alert(finish(id,defaultAccount));
+            console.log(finish(id,defaultAccount));
             $(this).prop('disabled',true);
-        } else {alert("Error")}
+        } else {console.log("Error")}
     });
 
 });

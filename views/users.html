@@ -13,7 +13,7 @@
 
     <!-- Navbar -->
     <div class="navbar">
-            <div class="col-md-3"></div>
+            <div class="col-md-3" id="username"></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-request">All Requests</button></a></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-lent">Lent</button></a></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-borrowed">Borrowed</button></a></div>
@@ -27,12 +27,12 @@
     <!--User information-->
     <div class="row">
         <div class="col-md-12">
-            <h3>User Reputation and History</h3>
+            <h3 id="repH3">User Reputation and History</h3>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select a User
                     <span class="caret"></span>
@@ -41,7 +41,11 @@
             </ul>
             </div>
         </div>
-        <div class="col-md-8">
+    </div>
+
+    <div class="row">
+        <h4 id = "curr-user">No user selected</h3>
+        <div class="col-md-12">
             <table class="table table-condensed table-hover table-sm" id="table-user">
                 <tbody>
                 <tr id="cashRep">
@@ -84,7 +88,7 @@
 
     <!--User History-->
     <div class="row">
-        <h3>Associated Projects<small></small></h3>
+        <h4>Associated Projects<small></small></h4>
         <table class="table table-condensed" id="table-history">
             <tbody id="project-tbody">
             </tbody>

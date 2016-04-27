@@ -245,11 +245,11 @@ function nextPage(dest) {
 function populateHeader() {
     var userName = getUserName(defaultAccount);
     $("#welcome").text("Welcome, " + userName + "!");
+    $("#username").text(userName);
 
     var balance = getBalance(defaultAccount);
     var debt = getDebt(defaultAccount);
 
-    $("#table-user-name").text(userName);
     $("#table-user-balance").text(balance.toString() + " BTC");
     $("#table-user-debt").text(debt.toString() + " BTC");
 }

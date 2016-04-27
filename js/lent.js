@@ -7,10 +7,10 @@ $(document).ready(function() {
     $(".btn-select").click(function() {
         var id = ($(this).prop("id"));
         if (myContractInstance.terminate.call(id,{from:defaultAccount})){
-            alert(terminate(id,defaultAccount));
+            console.log(terminate(id,defaultAccount));
             $(this).prop('disabled',true);
         } else {
-            alert("Error")}
+            console.log("Error")}
     });
 
 });

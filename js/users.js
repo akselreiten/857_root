@@ -4,6 +4,7 @@ $(document).ready(function() {
         $(".repContent").remove();
         $("#project-tbody").empty();
         var id = ($(this).prop("id"));
+        $("#curr-user").text(getUserName(id));
         populateRep(id);
         populateProj(id);
     });

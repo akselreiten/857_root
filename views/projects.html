@@ -13,7 +13,7 @@
 
     <!-- Navbar -->
     <div class="navbar">
-            <div class="col-md-3"></div>
+            <div class="col-md-3" id="username"></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-request">All Requests</button></a></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-lent">Lent</button></a></div>
             <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-borrowed">Borrowed</button></a></div>
@@ -27,28 +27,31 @@
     <!--User information-->
     <div class="row">
         <div class="col-md-12">
-            <h3>Project Information and Certification</h3>
+            <h3 id="projH3">Project Information and Certification</h3>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <div class="dropdown">
+        <div class = "col-md-2">
+
+        <div class="dropdown" id="proj-drop">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select a Project
                     <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
             </ul>
             </div>
-            <br>
+        </div>
+        <div class = "col-md-2">
             <button class="btn btn-select" id="cert">Certify</button>
         </div>
-        <div class="col-md-8">
+    </div>
+        
+    <div class="row">
+        <h4 id = "curr-proj">No project selected</h3>
+        <div class="col-md-12">
             <table class="table table-condensed table-hover table-sm" id="table-user">
                 <tbody>
-                <tr id="description">
-                <td class="projTitle">Description</td>
-                </tr>
                 <tr id="lender">
                 <td class="projTitle">Lender</td>
                 </tr>
@@ -92,7 +95,7 @@
 
     <!--User History-->
     <div class="row">
-        <h3>Certifiers<small></small></h3>
+        <h4>Certifiers<small></small></h4>
         <table class="table table-condensed" id="table-history">
             <tbody id="cert-tbody">
             </tbody>
