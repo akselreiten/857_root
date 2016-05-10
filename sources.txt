@@ -21,4 +21,4 @@ Libraries
 - Web3 (and dependencies)
 - BigNumber (and dependencies)
 - See folders 'js' and 'node_modules' for an exhaustive list
-
+- Used as executable only: Ethereum Wallet and Geth, from the Ethereum project.
