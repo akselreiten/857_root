@@ -9,14 +9,14 @@ This set of instructions is known to work on Mac OS X only and requires Internet
 
 1. Ethereum Wallet is a GUI that simplifies some blockchain interactions. Download it here: https://github.com/ethereum/mist/releases/download/0.7.2/Ethereum-Wallet-macosx-0-7-2.zip
 
-2. Geth is a command-line client that allows some more advanced Ethereum interactions. Follow the installation instructions (we recommend using Homebrew instead of building from source) here:
+2. Geth is a command-line client that allows some more advanced Ethereum interactions[1]. Follow the installation instructions (we recommend using Homebrew instead of building from source) here:
 https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Mac
 
 3. Open up the Mac terminal and start Geth with the following command: 
  ```   
  $ geth --testnet --rpc --rpccorsdomain "*" 
  ```
- This will start an Ethereum node and spit out a lot of log lines[1].
+ This will start an Ethereum node and spit out a lot of log lines[2].
 
 4. Wait for your node to finish downloading the blockchain (probably up to a few hours the first time, but much faster subsequently). After running the above command, you’ll soon start seeing new log lines in your terminal that look like this:
 
@@ -25,7 +25,7 @@ https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Mac
  (0 queued 0 ignored) including 693 txs in 4.336050032s. #851761 [51b20ba6 / f40d2e79]
  ```
 
- You know your node is up-to-date when the rate of import logging decreases to about one every 15 seconds[2] and blocks are added approximately one at a time:
+ You know your node is up-to-date when the rate of import logging decreases to about one every 15 seconds[3] and blocks are added approximately one at a time:
 
 5.	Open Ethereum Wallet (from Applications). You should see an interface like this:
 ![alt text](https://github.com/akselreiten/857_root/blob/master/img/rm1.png "Account Overview")
@@ -76,7 +76,9 @@ If you want to read more about Ethereum in general, start here:
 
 Google will probably also be your friend—the developer community seems pretty active, so there are a lot of resources out there.
 
-1.	geth starts an Ethereum node.
+1. How to connect a web site to a geth node. Read more here: http://ethereum.stackexchange.com/questions/647/how-to-connect-a-web-site-to-a-geth-node
+
+2.	geth starts an Ethereum node.
 
  --testnet points your node to the Morden Testnet. It’s a network that’s used for testing Ethereum distributed applications (as opposed to the main Ethereum network). Read more here:
 https://github.com/ethereum/wiki/wiki/Morden
@@ -86,7 +88,7 @@ https://github.com/ethereum/wiki/wiki/Morden
  --rpccorsdomain “*” modifies the Cross-Origin Resource Sharing (CORS) policy on your browser, so it can talk to your local Ethereum node. (Technically, we only need to enable it for localhost, but we haven’t found a way to make this work.) Since the node can only be contacted by your local machine, this should be secure. Read more about CORS here:
  https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 
-2.	The block time for Ethereum is around 15 seconds. See here:
+3.	The block time for Ethereum is around 15 seconds. See here:
  https://etherscan.io/charts/blocktime
 
 
