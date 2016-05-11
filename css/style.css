@@ -1,0 +1,353 @@
+/* GENERAL */
+
+body {
+    background-color: #fbfbfb;
+    font-family: "Open Sans", sans-serif;
+    margin-top:20px;
+    padding-left:0px;
+    padding-right:0px;
+}
+
+p{
+    font-size:10px;
+}
+
+.row{
+    padding-left:50px;
+    padding-right:50px;
+}
+
+/* BUTTONS */
+.btn-nav {
+    position: relative;
+//display: block;
+    height: 30px;
+    width: 120px;
+    margin: 10px 7px;
+    padding: 5px;
+    font-weight: 70;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #383736;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    outline: 0;
+    overflow: hidden;
+    background: none;
+    z-index: 1;
+    cursor: pointer;
+    transition: .08s ease-in;
+    -o-transition: .08s ease-in;
+    -ms-transition: .08s ease-in;
+    -moz-transition: .08s ease-in;
+    -webkit-transition: .08s ease-in;
+}
+
+.btn-nav:hover {
+    color: orange;
+}
+
+.btn-nav:hover:before {
+    top: 0;
+}
+
+.btn-nav:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+}
+
+.btn-current{
+    color:green;
+}
+
+
+.btn-select {
+    position: relative;
+    height: 30px;
+    width: 140px;
+    padding: 5px;
+    font-weight: 70;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color:white;
+    border: 1px gray solid;
+    border-radius: 3px;
+    text-transform:none;
+    outline: 0;
+    overflow: hidden;
+    background: green;
+    z-index: 1;
+    cursor: pointer;
+    transition: .08s ease-in;
+    -o-transition: .08s ease-in;
+    -ms-transition: .08s ease-in;
+    -moz-transition: .08s ease-in;
+    -webkit-transition: .08s ease-in;
+}
+
+.btn-loan{
+    position: relative;
+    height: 35px;
+    width: 150px;
+    padding: 5px;
+    font-weight: 70;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color:white;
+    border: 1px white solid;
+    border-radius: 5px;
+    text-transform:none;
+    outline: 0;
+    overflow: hidden;
+    background: #0088cc;
+    z-index: 1;
+    cursor: pointer;
+    transition: .08s ease-in;
+    -o-transition: .08s ease-in;
+    -ms-transition: .08s ease-in;
+    -moz-transition: .08s ease-in;
+    -webkit-transition: .08s ease-in;
+}
+
+.btn-loan:hover {
+    color: #dddddd;
+}
+
+.btn-loan:hover:before {
+    top: 0;
+}
+
+.btn-loan:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: -1;
+}
+
+.popup{
+    width:300px;
+    height:300px;
+    margin-top: -150px;
+    margin-left: -150px;
+    position:fixed;
+    z-index: 1;
+    top:50%;
+    left:50%;
+    background-color:white;
+    border-radius:2px;
+}
+
+.popup-form{
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.form{
+    margin-top:10px;
+}
+
+#cover{
+    position: fixed;
+    z-index:1;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.xButton{
+    position:absolute;
+    top: -2px;
+    right:10px;
+    font-size:20pt;
+    color:gray;
+    cursor:pointer;
+}
+
+/* TABLES */
+
+#col-table-user{
+    padding-top:20px;
+}
+
+/* http://stackoverflow.com/questions/27747072/vertical-align-in-bootstrap-table */
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+/* Specifics */
+/*
+Sorry it's so ad hoc--last-minute demo preparation.
+*/
+
+#username {
+    margin-top: 10px;
+    padding-top: 5px;
+    font-size: 10pt;
+    color: #AAAAAA;
+    font-weight: 300;
+}
+
+#welcome {
+    font-weight: 300;
+    margin: 0px;
+}
+
+.btn-loan{
+    margin-left: 37px;
+}
+
+#loans-col {
+    padding-left: 0px;
+}
+
+#col-table-user {
+    padding-top: 0px;
+}
+
+#all-requests {
+    margin-top: 60px;
+    font-weight: 300;
+}
+
+
+#lent-headline {
+    font-weight: 300;
+}
+
+#loan-headline-col {
+    padding-left: 0px;
+}
+
+#borr-headline-col {
+    padding-left: 0px;
+}
+
+h3 {
+    font-weight: 300;
+}
+
+
+h4 {
+   font-weight: 300; 
+}
+
+.dropdown {
+    margin-top: 15px;
+    margin-left: 75px;
+}
+
+.dropdown-toggle {
+    background: #0088cc;
+    height: 35px;
+    width: 150px;
+    padding: 5px;
+    font-weight: 70;
+    font-size: 12px;
+}
+
+.dropdown-menu {
+    font-size: 12px;
+}
+
+.caret {
+    margin-left: 30px !important;
+}
+
+.col-md-12 {
+    padding-left: 0px;
+}
+
+#curr-user {
+    margin-top: 50px;
+}
+
+#curr-proj {
+    margin-top: 50px;
+}
+
+.repTitle {
+    font-weight: bold;
+}
+
+.projTitle {
+    font-weight: bold;
+}
+
+#repH3 {
+    margin-top: 0px;
+}
+
+#projH3 {
+    margin-top: 0px;
+}
+
+#proj-drop {
+    margin-left: 10px;
+}
+
+#cert {
+    background: rgb(0, 128, 0);
+    margin-top: 15px;
+    height: 35px;
+    border: 0px;
+}
+
+#cert:hover {
+    color: #DDDDDD;
+}
+
+.xButton {
+    margin-top: 5px;
+    color: #BBBBBB;
+    font-size: 12pt;
+}
+
+.xButton:hover {
+    color: #888888;
+}
+
+#req-loan {
+    text-align: center;
+}
+
+.form {
+    width: 90%;
+    margin-left: 14px;
+    margin-right: 10px;
+    font-weight: 300;
+}
+
+#submit-loan {
+    background: #0088cc;
+    height: 35px;
+    width: 150px;
+    padding: 5px;
+    font-size: 10px;
+    margin-top: 20px;
+    margin-left: 64px;
+    color: white;
+    letter-spacing: 2px;
+}
+
+#submit-loan:hover {
+    color: #DDDDDD;
+}
+

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="" name="description">
+    <title>MicroChain: All Requests</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container-fluid">
+
+        <!-- Navbar -->
+        <div class="navbar">
+            <div class="col-md-3" id="username"></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav btn-current" id="btn-request"><u>All Requests</u></button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-lent">Lent</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-borrowed">Borrowed</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-users">Users</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-projects">Projects</button></a></div>
+            <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-logOut">Log Out</button></a></div>
+            <div class="col-md-3"></div>
+        </div>
+        <hr>
+
+        <!--User information-->
+        <div class ="row">
+            
+            <div class="col-md-8" id="loans-col">
+                <h3 id = "welcome"></h3><br>
+                <button class="btn btn-loan" id="request-loan">Request loan</button>
+            </div>
+            <div class="col-md-4" id="col-table-user">
+                <table class="table table-condensed table-hover table-sm" id="table-user">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Balance</th>
+                            <th>Owned Debt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="table-user-balance"></td>
+                            <td id="table-user-debt"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--All requests-->
+        <div class="row">
+            <h4 id="all-requests">All Project Requests</h4>
+
+            <table class="table table-condensed" id="table-requests">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Interest</th>
+                    <th>Duration</th>
+                    <th>Certifications</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="table-requests-tbody">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!-- End Container -->
+
+    <div id="cover"></div>
+
+    <div class="popup">
+        <div class="xButton">X</div>
+        <div class="popup-form">
+            <h4 id="req-loan">Request Loan</h4>
+            <input type="text" class="form" placeholder="Description" id="popup-input-description">
+            <input type="text" class="form" placeholder="Amount in BTC" id="popup-input-amount">
+            <input type="text" class="form" placeholder="% Interest" id="popup-input-interest">
+            <input type="text" class="form" placeholder="Days to Completion" id="popup-input-duration">
+            <input type="text" class="form" placeholder="# Certifications Required" id="popup-input-certification">
+            <br>
+            <button class="btn form" id="submit-loan">Submit Request</button>
+        </div>
+    </div>
+
+    <!-- Load JS libraries -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../node_modules/web3/dist/web3.js"></script>
+    <script src="../node_modules/bignumber.js/bignumber.min.js"></script>
+    <script src="../data/contract.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/requests.js"></script>
+</body>
+</html>

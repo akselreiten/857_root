@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="" name="description">
+    <title>MicroChain: Borrowed</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="col-md-3" id="username"></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-request">All Requests</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-lent">Lent</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav btn-current" id="btn-borrowed"><u>Borrowed</u></button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-users">Users</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-projects">Projects</button></a></div>
+        <div class="col-md-1"><a href="#"><button class="btn-nav" id="btn-logOut">Log Out</button></a></div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <hr>
+
+    <!--User information-->
+    <div class="row">
+        <div class="col-md-8" id="borr-headline-col">
+            <h4 id="borrowed-headline"></h4>
+        </div>
+        <div class="col-md-4" id="col-table-user">
+            <table class="table table-condensed table-hover table-sm" id="table-user">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>Balance</th>
+                    <th>Owned Debt</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="table-user-balance"></td>
+                    <td id="table-user-debt"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--All requests-->
+    <div class="row">
+        <h3>Borrowed Loans<small></small></h3>
+
+        <table class="table table-condensed" id="table-borrowed">
+            <thead>
+            <tr>
+                <th>Lent From</th>
+                <th>Project Description</th>
+                <th>Amount</th>
+                <th>Interest</th>
+                <th>Payback date</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="table-borrowed-tbody"></tbody>
+        </table>
+    </div>
+
+
+
+</div>
+<!-- End Container -->
+
+<!-- Load JS libraries -->
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../node_modules/web3/dist/web3.js"></script>
+<script src="../node_modules/bignumber.js/bignumber.min.js"></script>
+<script src="../data/contract.js"></script>
+<script src="../js/main.js"></script>
+<script src="../js/borrowed.js"></script>
+</body>
+</html>
