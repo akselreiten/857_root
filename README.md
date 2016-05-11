@@ -1,5 +1,7 @@
 # MicroChain
-MicroChain implements a lending system built on the Ethereum platform. 
+MicroChain implements a distributed, verifiable and transparent microlending system, built on the Ethereum platform. Here is how it works: 
+
+Insert demonstration here. 
 
 ## Getting It Running
 ##### Last updated on 5.11.2016
@@ -26,10 +28,12 @@ https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Mac
  You know your node is up-to-date when the rate of import logging decreases to about one every 15 seconds[2] and blocks are added approximately one at a time:
 
 5.	Open Ethereum Wallet (from Applications). You should see an interface like this:
-<picture>
+![alt text](https://github.com/akselreiten/857_root/blob/master/img/rm1.png "Account Overview")
  Create a new account—click “Wallets” (blue oval), then click “Add Account” (green oval). Choose and type in a password. You should see your new account appear around where the red oval is.
 
 6. At this point, I’ll need to register your account as a user of MicroChain, and give you some ether (the Ethereum currency) on the testnet, so you can send transactions. Click your new account (the red oval in the above figure)—you’ll get to the following view:
+ 
+ ![alt text](https://github.com/akselreiten/857_root/blob/master/img/rm2.png "Public Key")
  
  Copy your public key (purple box), and send an email to fxchen12@gmail.com with the name you want on your MicroChain account (e.g. Ben Bitdiddle), and your public key. I’ll register your account with some initial fake currency for demo purposes (you can always ask me for more). I’ll let you know when you’re ready to proceed to the next step.
 
@@ -55,8 +59,12 @@ https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Mac
 
 9. At this point, you’re ready to use the MicroChain front end to actually use the lending system. Clone or otherwise download the MicroChain code (in the same repository as these instructions), go the repo root, and open up views/index.html in your favorite browser. It should look like this:
 
+ ![alt text](https://github.com/akselreiten/857_root/blob/master/img/rm3.png "MicroChain web interface")
+
 
 10. Type in your public key (see Step 6) and click “Get Started.” You should get to a screen that looks like this:
+ 
+ ![alt text](https://github.com/akselreiten/857_root/blob/master/img/rm4.png "In")
 
  You’re in! Feel free to navigate around, and play with any of the functionalities of the system. Note that your actions will have some latency (~one minute) in terms of yielding results, because the blockchain takes time to reach consensus. Take a look at the demo video in the repository to see what’s possible.
  
