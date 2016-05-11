@@ -233,7 +233,7 @@ $(document).ready(function() {
     $("#btn-users").click(function() {nextPage("users");});
     $("#btn-projects").click(function() {nextPage("projects");});
     $("#btn-logOut").click(function() {
-        location.assign("index.html");
+        location.assign("../index.html");
     });
 });
 
