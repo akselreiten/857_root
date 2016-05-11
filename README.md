@@ -4,7 +4,7 @@ Here is how MicroChain works:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=qx8hrhBZJ98
 " target="_blank"><img src="http://img.youtube.com/vi/qx8hrhBZJ98/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+alt="IMAGE ALT TEXT HERE" width="360" height="270" border="10" /></a>
 
 Insert demonstration here. 
 
