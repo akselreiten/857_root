@@ -2,10 +2,6 @@
 MicroChain implements a distributed, verifiable and transparent microlending system, built on the Ethereum platform. 
 Here is how MicroChain works: 
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=RdN6czfj-Go
-" target="_blank"><img src="http://img.youtube.com/vi/qx8hrhBZJ98/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="720" height="540" border="10" /></a>
-
 ## Getting It Running
 ##### Last updated on 5.11.2016
 This set of instructions is known to work on Mac OS X only and requires Internet connectivity. It assumes some familiarity with the command line and Homebrew. In general, Ethereum is quite a new platform, so there may be unforeseen technical challenges. Don’t hesitate to email fxchen12@gmail.com or aksel.reiten@gmail.com for support.
