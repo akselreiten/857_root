@@ -4,7 +4,7 @@ Here's a demo:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=RdN6czfj-Go
 " target="_blank"><img src="https://i.ytimg.com/vi/RdN6czfj-Go/1.jpg?time=1463018918524" 
-alt="IMAGE ALT TEXT HERE" width="720" height="540" border="10" /></a>
+alt="IMAGE ALT TEXT HERE" width="360" height="270" border="10" /></a>
 
 ## Getting It Running
 ##### Last updated on 5.11.2016
