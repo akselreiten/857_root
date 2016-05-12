@@ -3,7 +3,7 @@ MicroChain implements a distributed, verifiable and transparent microlending sys
 Here's a demo:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=RdN6czfj-Go
-" target="_blank"><img src="http://img.youtube.com/vi/qx8hrhBZJ98/0.jpg" 
+" target="_blank"><img src="https://i.ytimg.com/vi/RdN6czfj-Go/1.jpg?time=1463018918524" 
 alt="IMAGE ALT TEXT HERE" width="720" height="540" border="10" /></a>
 
 ## Getting It Running
