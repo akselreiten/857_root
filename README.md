@@ -60,7 +60,7 @@ https://github.com/ethereum/go-ethereum/wiki/Installation-Instructions-for-Mac
  true
  ```
 
-9. At this point, you’re ready to use the MicroChain front end to actually use the lending system. Clone or otherwise download the MicroChain code (in the same repository as these instructions), go the repo root, and open up views/index.html in your favorite browser. It should look like this:
+9. At this point, you’re ready to use the MicroChain front end to actually use the lending system. Navigate to http://akselreiten.github.io/857_root/. Alternatively, clone or otherwise download the MicroChain code (in the same repository as these instructions), go the repo root, and open up views/index.html in your favorite browser. It should look like this:
 
  ![alt text](https://github.com/akselreiten/857_root/blob/master/img/rm3.png "MicroChain web interface")
 
@@ -89,7 +89,7 @@ https://github.com/ethereum/wiki/wiki/Morden
  --rpccorsdomain “*” modifies the Cross-Origin Resource Sharing (CORS) policy on your browser, so it can talk to your local Ethereum node. (Technically, we only need to enable it for localhost, but we haven’t found a way to make this work.) Since the node can only be contacted by your local machine, this should be secure. Read more about CORS here:
  https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
  
- -- Read more about how to connect a web site to a geth node here: http://ethereum.stackexchange.com/questions/647/how-to-connect-a-web-site-to-a-geth-node
+ Read more about how to connect a web site to a geth node here: http://ethereum.stackexchange.com/questions/647/how-to-connect-a-web-site-to-a-geth-node
 
 2.	The block time for Ethereum is around 15 seconds. See here:
  https://etherscan.io/charts/blocktime
